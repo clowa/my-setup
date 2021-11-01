@@ -22,24 +22,27 @@ $modules = @(
     }
 )
 
-$configGitRepoPath = '~/github/my-setup'
+$configGitRepoPath = "$HOME/github/my-setup"
 
 # Setp terminal icons
 Write-Host 'Installing modules ...'
 foreach ($module in $modules) {
-    Install-Module $module 
+    Install-Module @module 
 }
 
-Write-Host 'Cloneing config repository ...'
-if (Get-Command git) {
-    git clone https://github.com/clowa/my-setup.git
-} else {
-    Write-Warning 'git cli is not installed. Skipping.'
+if (Test-Path $configGitRepoPath) {
+    Write-Host 'Cloneing config repository ...'
+    if (Get-Command git) {
+        git clone https://github.com/clowa/my-setup.git $HOME/github/my-setup
+    } else {
+        Write-Warning 'git cli is not installed. Skipping.'
+    }
 }
 
 Write-Host 'Copying powershell profile ...'
 if (Test-Path $configGitRepoPath) {
-    Copy-Item $configGitRepoPath/Powershell/Microsoft.PowerShell_profile.ps1 -Force
+    Move-Item -Path $PROFILE -Destination "$PROFILE.backup" -Force
+    Copy-Item $configGitRepoPath/Powershell/Microsoft.PowerShell_profile.ps1 $PROFILE -Force
 } else {
     Write-Warning "Git repository is not present at $configGitRepoPath. Skipping."
 }
