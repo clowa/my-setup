@@ -17,7 +17,7 @@ if (Test-Path($ChocolateyProfile)) {
 ###
 $env:KUBE_EDITOR = 'code -w'
 Register-KubectlCompletion
-Set-Alias -Name 'k' -Value 'kubectl.exe' -Description 'Kubernetes cli'
+Set-Alias -Name 'k' -Value 'kubectl' -Description 'Kubernetes cli'
 
 function Get-EKSToken {
     param (
