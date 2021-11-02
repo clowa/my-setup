@@ -18,13 +18,18 @@
           "style": "diamond",
           "powerline_symbol": "\ue0b0",
           "invert_powerline": false,
-          "foreground": "#ffffff",
-          "background": "#ff479c",
+          "foreground": "#000000",
+          "background": "#21c7a8",
           "leading_diamond": "",
           "trailing_diamond": "\ue0b0",
           "properties": {
-            "prefix": "  ",
-            "style": "folder"
+            "style": "folder",
+            "home_icon": "\uf46d ",
+            "folder_icon": "",
+            "enable_hyperlink": true,
+            "mapped_locations": {
+              "~\\github": "\uF09B"
+            }
           }
         },
         {
@@ -32,8 +37,8 @@
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "invert_powerline": false,
-          "foreground": "#193549",
-          "background": "#fffb38",
+          "foreground": "#011627",
+          "background": "#82AAFF",
           "leading_diamond": "",
           "trailing_diamond": "",
           "properties": {
