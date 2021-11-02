@@ -30,17 +30,19 @@ $fonts = @(
     }
 )
 
-$configGitRepoPath = "$HOME/github/my-setup"
+$configGitRepoPath = if (Test-Path "$HOME/github/my-setup") { "$HOME/github/my-setup" } elseif (Test-Path "$PSScriptRoot/../../my-setup") { "$PSScriptRoot/../../my-setup" } else { $null }
 
 # Setp terminal icons
 Write-Host 'Installing modules ...'
+Install-PackageProvider -Name NuGet -MinimumVersion "2.8.5.201" -Force
+Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
 foreach ($module in $modules) {
     Install-Module @module 
 }
 
 if (-Not (Test-Path $configGitRepoPath)) {
     Write-Host 'Cloneing config repository ...'
-    if (Get-Command git) {
+    if (Get-Command git -ErrorAction SilentlyContinue) {
         git clone https://github.com/clowa/my-setup.git $HOME/github/my-setup
     } else {
         Write-Warning 'git cli is not installed. Skipping.'
@@ -59,39 +61,17 @@ if (Test-Path $configGitRepoPath) {
 # Install Fonts
 ###
 Write-Host 'Installing fonts ...'
-
-if ($IsWindows) {
-    $systemFontsDir = "C:\Windows\Fonts"
-    $userFontsDir = "$($env:LOCALAPPDATA)\Microsoft\Windows\Fonts"
+Import-Module ../modules/FontHelper/FontHelper.psm1
+if ($IsWindows -Or $PSVersionTable.PSEdition -eq "Desktop") {
     $tmpDir = New-Item -Path (Join-Path $env:TEMP (New-Guid)) -ItemType Directory
 } elseif ($IsMacOs) {
-    $systemFontsDir = "/Library/Fonts/"
-    $userFontsDir = "$HOME/Library/Fonts"
     $tmpDir = New-Item -Path (Join-Path $env:TMPDIR (New-Guid)) -ItemType Directory
 }
 
 $tmpLocalFonts = "$tmpDir\fonts"
 foreach ($fontRepo in $fonts) {
-    if ($IsWindows) {
-        $objShell = New-Object -ComObject Shell.Application
-        $objFolder = $objShell.Namespace(0x14)
-    }
-
     $assetZip = Get-GitHubRelease -OwnerName $fontRepo.OwnerName -RepositoryName $fontRepo.RepositoryName -Latest | Get-GitHubReleaseAsset | Where-Object { $_.name -like $fontRepo.AssetName } | Get-GitHubReleaseAsset -Path (Join-Path $tmpDir "asset-$(New-Guid).zip")
     $assetZip | Expand-Archive -DestinationPath $tmpLocalFonts -Force
 
-    foreach ($fileTTF in Get-ChildItem $tmpLocalFonts -Filter *.ttf -Recurse) {
-        
-        $alreadyInstalled = (Get-ChildItem -Path (Join-Path $userFontsDir $fileTTF.Name) -ErrorAction SilentlyContinue).Length -gt 0 -or (Get-ChildItem -Path (Join-Path $systemFontsDir $fileTTF.Name) -ErrorAction SilentlyContinue).Length -gt 0
-
-        if (-Not $alreadyInstalled) {
-            if ($IsWindows) {
-                $objFolder.CopyHere($fileTTF.fullname, 0x10)
-            } elseif ($IsMacOs) {
-                Copy-Item $fileTTF.FullName $userFontsDir
-            }
-            
-        }
-        Remove-Item $fileTTF
-    }
+    Install-Font -Path $tmpLocalFonts
 }
