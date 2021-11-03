@@ -13,55 +13,61 @@
       "vertical_offset": 0,
       "segments": [
         {
+          "type": "os",
+          "style": "diamond",
+          "foreground": "#ffffff",
+          "background": "#2e9599",
+          "leading_diamond": "",
+          "trailing_diamond": ""
+        },
+        {
           "type": "shell",
-          "style": "plain",
+          "style": "powerline",
           "foreground": "#ffffff",
           "background": "#0077c2",
+          "powerline_symbol": "",
           "properties": {
-            "prefix": "<#0077c2,transparent>\uE0B6</>  ",
-            "postfix": " <transparent,#0077c2>\uE0B2</>"
+            "prefix": "  ",
+            "postfix": " "
           }
         },
         {
           "type": "aws",
           "style": "powerline",
-          "powerline_symbol": "\ue0b0",
+          "powerline_symbol": "",
           "foreground": "#000000",
           "background": "#FFA400",
           "properties": {
-            "prefix": " \uf65e ",
+            "prefix": "  ",
             "template": "{{.Profile}}{{if .Region}}@{{.Region}}{{end}}"
           }
         },
         {
           "type": "az",
           "style": "powerline",
-          "powerline_symbol": "\ue0b0",
+          "powerline_symbol": "",
           "foreground": "#000000",
           "background": "#9ec3f0",
           "properties": {
             "display_id": false,
             "display_name": true,
             "info_separator": " @ ",
-            "prefix": " \uFD03 "
+            "prefix": " ﴃ "
           }
         },
         {
           "type": "kubectl",
           "style": "diamond",
-          "trailing_diamond": "\uE0B4",
-          "powerline_symbol": "\ue0b0",
+          "trailing_diamond": "",
+          "powerline_symbol": "",
           "foreground": "#000000",
           "background": "#ebcc34",
           "properties": {
-            "prefix": " \uFD31 ",
+            "prefix": " ﴱ ",
             "template": "{{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}"
           }
         }
       ]
-    },
-    {
-      "type": "newline"
     },
     {
       "type": "prompt",
@@ -73,26 +79,26 @@
         {
           "type": "path",
           "style": "diamond",
-          "powerline_symbol": "\ue0b0",
+          "powerline_symbol": "",
           "invert_powerline": false,
           "foreground": "#000000",
           "background": "#21c7a8",
           "leading_diamond": "",
-          "trailing_diamond": "\ue0b0",
+          "trailing_diamond": "",
           "properties": {
             "style": "folder",
-            "home_icon": "\uf46d ",
+            "home_icon": " ",
             "folder_icon": "",
             "enable_hyperlink": true,
             "mapped_locations": {
-              "~\\github": "\uF09B"
+              "~\\github": ""
             }
           }
         },
         {
           "type": "git",
           "style": "powerline",
-          "powerline_symbol": "\ue0b0",
+          "powerline_symbol": "",
           "invert_powerline": false,
           "foreground": "#011627",
           "background": "#82AAFF",
@@ -107,7 +113,7 @@
         {
           "type": "exit",
           "style": "powerline",
-          "powerline_symbol": "\ue0b0",
+          "powerline_symbol": "",
           "invert_powerline": false,
           "foreground": "#ffffff",
           "background": "#2e9599",
