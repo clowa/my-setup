@@ -45,7 +45,7 @@
         {
           "type": "az",
           "style": "powerline",
-          "powerline_symbol": "",
+          "powerline_symbol": "",
           "foreground": "#000000",
           "background": "#9ec3f0",
           "properties": {
@@ -59,7 +59,6 @@
           "type": "kubectl",
           "style": "diamond",
           "trailing_diamond": "",
-          "powerline_symbol": "",
           "foreground": "#000000",
           "background": "#ebcc34",
           "properties": {
