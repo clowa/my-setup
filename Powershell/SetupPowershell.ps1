@@ -1,3 +1,5 @@
+Import-Module ../modules/FontHelper/FontHelper.psm1
+
 $modules = @(
     @{
         Name            = 'Terminal-Icons'
@@ -30,7 +32,7 @@ $fonts = @(
     }
 )
 
-$configGitRepoPath = if (Test-Path "$HOME/github/my-setup") { "$HOME/github/my-setup" } elseif (Test-Path "$PSScriptRoot/../../my-setup") { "$PSScriptRoot/../../my-setup" } else { $null }
+$configGitRepoPath = if (Test-Path "$HOME/github/my-setup") { "$HOME/github/my-setup" } elseif (Test-Path "$PSScriptRoot/../../my-setup") { Resolve-Path -Path "$PSScriptRoot/../../my-setup" } else { $null }
 
 # Setp terminal icons
 Write-Host 'Installing modules ...'
@@ -49,10 +51,14 @@ if (-Not (Test-Path $configGitRepoPath)) {
     }
 }
 
-Write-Host 'Copying powershell profile ...'
+Write-Host 'Creating powershell profile link ...'
 if (Test-Path $configGitRepoPath) {
-    Move-Item -Path $PROFILE -Destination "$PROFILE.backup" -Force
-    Copy-Item $configGitRepoPath/Powershell/Microsoft.PowerShell_profile.ps1 $PROFILE -Force
+    if (Get-ShouldOverwrite -Prompt "File $PROFILE is present. Do you want to overwrite? (y/n)" -Path $PROFILE) {
+        Write-Verbose "Backing up $PROFILE"
+        Move-Item -Path $PROFILE -Destination "$PROFILE.backup" -Force
+        Write-Verbose "Creating symlink to powershell profile."
+        New-Item -ItemType SymbolicLink -Path $PROFILE -Target $configGitRepoPath/Powershell/Microsoft.PowerShell_profile.ps1
+    }
 } else {
     Write-Warning "Git repository is not present at $configGitRepoPath. Skipping."
 }
@@ -61,17 +67,7 @@ if (Test-Path $configGitRepoPath) {
 # Install Fonts
 ###
 Write-Host 'Installing fonts ...'
-Import-Module ../modules/FontHelper/FontHelper.psm1
-if ($IsWindows -Or $PSVersionTable.PSEdition -eq "Desktop") {
-    $tmpDir = New-Item -Path (Join-Path $env:TEMP (New-Guid)) -ItemType Directory
-} elseif ($IsMacOs) {
-    $tmpDir = New-Item -Path (Join-Path $env:TMPDIR (New-Guid)) -ItemType Directory
-}
 
-$tmpLocalFonts = "$tmpDir\fonts"
 foreach ($fontRepo in $fonts) {
-    $assetZip = Get-GitHubRelease -OwnerName $fontRepo.OwnerName -RepositoryName $fontRepo.RepositoryName -Latest | Get-GitHubReleaseAsset | Where-Object { $_.name -like $fontRepo.AssetName } | Get-GitHubReleaseAsset -Path (Join-Path $tmpDir "asset-$(New-Guid).zip")
-    $assetZip | Expand-Archive -DestinationPath $tmpLocalFonts -Force
-
-    Install-Font -Path $tmpLocalFonts
+    Install-FontFromGitHub @fontRepo
 }
