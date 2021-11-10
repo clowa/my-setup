@@ -59,8 +59,8 @@
           "type": "kubectl",
           "style": "diamond",
           "trailing_diamond": "",
-          "foreground": "#000000",
-          "background": "#ebcc34",
+          "foreground": "#ffffff",
+          "background": "#326ce5",
           "properties": {
             "prefix": " ﴱ ",
             "template": "{{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}"
