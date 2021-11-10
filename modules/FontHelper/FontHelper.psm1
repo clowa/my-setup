@@ -85,19 +85,17 @@ function Install-FontFromGitHub {
 
     try {
         Write-Verbose "Get asset $AssetName of $OwnerName/$RepositoryName from the latest GitHub release ..."
-        $asset = (
-            Get-GitHubRelease -OwnerName $OwnerName -RepositoryName $RepositoryName -Latest
-            | Get-GitHubReleaseAsset
-            | Where-Object { $_.name -like $AssetName }
-            | Select-Object -First 1
-        )
+        $asset = Get-GitHubRelease -OwnerName $OwnerName -RepositoryName $RepositoryName -Latest |
+        Get-GitHubReleaseAsset |
+        Where-Object { $_.name -like $AssetName } |
+        Select-Object -First 1
 
         # Exit if query doesn't return any result.
         # Exit if downloaded asset is not of type zip.
         if (-Not $asset) {
             Write-Warning "Asset $AssetName not found."
             return $false
-        } elseif (-Not ([IO.Path]::GetExtension($asset.Name) -eq "zip")) {
+        } elseif (-Not ([IO.Path]::GetExtension($asset.Name) -eq ".zip")) {
             Write-Warning "Asset is not of type zip. It's of type $([IO.Path]::GetExtension($asset.Name))."
             return $false
         }
