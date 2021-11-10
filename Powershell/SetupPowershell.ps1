@@ -1,4 +1,5 @@
 Import-Module ../modules/FontHelper/FontHelper.psm1
+Import-Module ../modules/ConfigurationHelper/ConfigurationHelper.psm1
 
 $modules = @(
     @{
@@ -25,7 +26,7 @@ $modules = @(
 )
 
 $fonts = @(
-    [PSCustomObject]@{
+    @{
         OwnerName      = "ryanoasis"
         RepositoryName = "nerd-fonts"
         AssetName      = "CascadiaCode.zip"
