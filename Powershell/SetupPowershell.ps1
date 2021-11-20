@@ -57,8 +57,9 @@ if (Test-Path $configGitRepoPath) {
     if (Get-ShouldOverwrite -Prompt "File $PROFILE is present. Do you want to overwrite? (y/n)" -Path $PROFILE) {
         Write-Verbose "Backing up $PROFILE"
         Move-Item -Path $PROFILE -Destination "$PROFILE.backup" -Force
-        Write-Verbose "Creating symlink to powershell profile."
-        New-Item -ItemType SymbolicLink -Path $PROFILE -Target $configGitRepoPath/Powershell/Microsoft.PowerShell_profile.ps1
+        $TargetProfilePath = "$configGitRepoPath/Powershell/Microsoft.PowerShell_profile.ps1"
+        Write-Verbose "Creating symlink at to $PROFILE to $TargetProfilePath"
+        New-Item -ItemType SymbolicLink -Path $PROFILE -Target $TargetProfilePath -Force
     }
 } else {
     Write-Warning "Git repository is not present at $configGitRepoPath. Skipping."
