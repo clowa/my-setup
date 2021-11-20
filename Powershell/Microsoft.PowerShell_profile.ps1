@@ -22,10 +22,11 @@ Set-Alias -Name 'k' -Value 'kubectl' -Description 'Kubernetes cli'
 function Get-EKSToken {
     param (
         $Clustername = $((Select-String -Pattern 'current-context: (.*)$' -Path $HOME/.kube/config).Matches.Groups[1].Value),
-        $Region = $((Get-Content -Raw -Path $HOME/.aws/config | Select-String -Pattern '\[default\][\s*|\n]region\s*=\s(.*)').Matches.Groups[1].Value),
-        $Profile = "default"
+        #! The following regex can lead to "' doesn't match a supported format" if ~/.aws/config is formated with CFLF. Solution is to store file with LF.
+        $Region = $((Get-Content -Raw -Path $HOME/.aws/config | Select-String -Pattern '\[default\]\s*\r\n?|\nregion\s*=\s(.*)').Matches.Groups[1].Value),
+        $ProfileAWS = "default"
     )
-    return (aws eks get-token --cluster-name "$Clustername" --region=$Region --profile=$Profile | ConvertFrom-Json).status.token
+    return (aws eks get-token --cluster-name "$Clustername" --region "$Region" --profile "$ProfileAWS" | ConvertFrom-Json).status.token
 }
 Set-Alias -Name token -Value Get-EKSToken -Description 'Shortcut to get eks token of prototype cluster'
   
