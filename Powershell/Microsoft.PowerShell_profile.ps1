@@ -21,9 +21,11 @@ Set-Alias -Name 'k' -Value 'kubectl' -Description 'Kubernetes cli'
 
 function Get-EKSToken {
     param (
-        $Clustername = 'team-nginx'
+        $Clustername = $((Select-String -Pattern 'current-context: (.*)$' -Path $HOME/.kube/config).Matches.Groups[1].Value),
+        $Region = $((Get-Content -Raw -Path $HOME/.aws/config | Select-String -Pattern '\[default\][\s*|\n]region\s*=\s(.*)').Matches.Groups[1].Value),
+        $Profile = "default"
     )
-    return (aws eks get-token --cluster-name "$Clustername" --region=eu-central-1 --profile=sandbox | jq -r '.status.token')
+    return (aws eks get-token --cluster-name "$Clustername" --region=$Region --profile=$Profile | ConvertFrom-Json).status.token
 }
 Set-Alias -Name token -Value Get-EKSToken -Description 'Shortcut to get eks token of prototype cluster'
   
@@ -39,6 +41,12 @@ function Get-LastCommandExecutionTime () {
     return ((Get-History)[-1].EndExecutionTime - (Get-History)[-1].StartExecutionTime)
 }
 Set-Alias -Name 'lastexectime' -Value Get-LastCommandExecutionTime -Description 'Get execution time of last command in history.'
+
+function Get-EnvVars {
+    return Get-ChildItem env:
+    
+}
+Set-Alias -Name 'printenv' -Value Get-EnvVars -Description 'Get all environment variables of the current session.'
 
 ###
 # Auto completion
