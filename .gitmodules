@@ -1,3 +1,6 @@
 [submodule "zsh/.zsh/zsh-autosuggestions"]
 	path = zsh/.zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "Powershell/pwsh-toolbox"]
+	path = Powershell/pwsh-toolbox
+	url = https://github.com/clowa/pwsh-toolbox.git

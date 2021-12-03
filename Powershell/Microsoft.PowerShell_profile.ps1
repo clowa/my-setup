@@ -12,42 +12,21 @@ if (Test-Path($ChocolateyProfile)) {
     Import-Module "$ChocolateyProfile"
 }
   
+
+###
+# Additional modules
+###
+$Path = Split-Path -Path ((Get-Item $PROFILE).Target) -Parent # Get the path of THIS file.
+Import-Module $Path/pwsh-toolbox/modules/EKS -Force
+Import-Module $Path/pwsh-toolbox/modules/PSEnv -Force
+Import-Module $Path/pwsh-toolbox/modules/HistoryHelper -Force
+
 ###
 # Kubernetes
 ###
 $env:KUBE_EDITOR = 'code -w'
 Register-KubectlCompletion
 Set-Alias -Name 'k' -Value 'kubectl' -Description 'Kubernetes cli'
-
-function Get-EKSToken {
-    param (
-        $Clustername = $((Select-String -Pattern 'current-context: (.*)$' -Path $HOME/.kube/config).Matches.Groups[1].Value),
-        #! The following regex can lead to "' doesn't match a supported format" if ~/.aws/config is formated with CFLF. Solution is to store file with LF.
-        $Region = $((Get-Content -Raw -Path $HOME/.aws/config | Select-String -Pattern '\[default\]\s*\r\n?|\nregion\s*=\s(.*)').Matches.Groups[1].Value),
-        $ProfileAWS = "default"
-    )
-    return (aws eks get-token --cluster-name "$Clustername" --region "$Region" --profile "$ProfileAWS" | ConvertFrom-Json).status.token
-}
-Set-Alias -Name token -Value Get-EKSToken -Description 'Shortcut to get eks token of prototype cluster'
-  
-###
-# General aliases
-###
-function Get-FullHistory () {
-    Get-Content -Path (Get-PSReadLineOption).HistorySavePath
-}
-Set-Alias -Name 'history' -Value Get-FullHistory -Description 'Get command history across all Powershell sessions.'
-
-function Get-LastCommandExecutionTime () {
-    return ((Get-History)[-1].EndExecutionTime - (Get-History)[-1].StartExecutionTime)
-}
-Set-Alias -Name 'lastexectime' -Value Get-LastCommandExecutionTime -Description 'Get execution time of last command in history.'
-
-function Get-EnvVars {
-    return Get-ChildItem env:
-    
-}
-Set-Alias -Name 'printenv' -Value Get-EnvVars -Description 'Get all environment variables of the current session.'
 
 ###
 # Auto completion
