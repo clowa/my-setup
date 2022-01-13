@@ -11,7 +11,12 @@ $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
     Import-Module "$ChocolateyProfile"
 }
-  
+
+try {
+    ## Home Brew setup for powershell
+    if ($IsMacOS) { $(/opt/homebrew/bin/brew shellenv) | Invoke-Expression }  
+} catch {}
+
 
 ###
 # Additional modules
@@ -58,6 +63,20 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
 if ($host.Name -eq 'ConsoleHost') {
     Import-Module PSReadLine
 }
+
+################
+## PSReadLine ##
+################
+
+# Don't add commands with a leading space to the history.
+Set-PSReadLineOption -AddToHistoryHandler {
+    param($command)
+    if ($command -like ' *') {
+        return $false
+    }
+    # Add any other checks you want
+    return $true
+} 
 
 # This is an example profile for PSReadLine.
 #
