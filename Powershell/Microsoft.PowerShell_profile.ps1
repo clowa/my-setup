@@ -92,54 +92,6 @@ Set-PSReadLineOption -AddToHistoryHandler {
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 
-# This key handler shows the entire or filtered history using Out-GridView. The
-# typed text is used as the substring pattern for filtering. A selected command
-# is inserted to the command line without invoking. Multiple command selection
-# is supported, e.g. selected by Ctrl + Click.
-Set-PSReadLineKeyHandler -Key F7 `
-    -BriefDescription History `
-    -LongDescription 'Show command history' `
-    -ScriptBlock {
-    $pattern = $null
-    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$pattern, [ref]$null)
-    if ($pattern) {
-        $pattern = [regex]::Escape($pattern)
-    }
-
-    $history = [System.Collections.ArrayList]@(
-        $last = ''
-        $lines = ''
-        foreach ($line in [System.IO.File]::ReadLines((Get-PSReadLineOption).HistorySavePath)) {
-            if ($line.EndsWith('`')) {
-                $line = $line.Substring(0, $line.Length - 1)
-                $lines = if ($lines) {
-                    "$lines`n$line"
-                } else {
-                    $line
-                }
-                continue
-            }
-
-            if ($lines) {
-                $line = "$lines`n$line"
-                $lines = ''
-            }
-
-            if (($line -cne $last) -and (!$pattern -or ($line -match $pattern))) {
-                $last = $line
-                $line
-            }
-        }
-    )
-    $history.Reverse()
-
-    $command = $history | Out-GridView -Title History -PassThru
-    if ($command) {
-        [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
-        [Microsoft.PowerShell.PSConsoleReadLine]::Insert(($command -join "`n"))
-    }
-}
-
 # The built-in word movement uses character delimiters, but token based word
 # movement is also very useful - these are the bindings you'd use if you
 # prefer the token based movements bound to the normal emacs word movement
@@ -498,61 +450,6 @@ Set-PSReadLineKeyHandler -Key RightArrow `
     }
 }
 
-# Cycle through arguments on current line and select the text. This makes it easier to quickly change the argument if re-running a previously run command from the history
-# or if using a psreadline predictor. You can also use a digit argument to specify which argument you want to select, i.e. Alt+1, Alt+a selects the first argument
-# on the command line. 
-Set-PSReadLineKeyHandler -Key Alt+a `
-    -BriefDescription SelectCommandArguments `
-    -LongDescription 'Set current selection to next command argument in the command line. Use of digit argument selects argument by position' `
-    -ScriptBlock {
-    param($key, $arg)
-  
-    $ast = $null
-    $cursor = $null
-    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$ast, [ref]$null, [ref]$null, [ref]$cursor)
-  
-    $asts = $ast.FindAll( {
-            $args[0] -is [System.Management.Automation.Language.ExpressionAst] -and
-            $args[0].Parent -is [System.Management.Automation.Language.CommandAst] -and
-            $args[0].Extent.StartOffset -ne $args[0].Parent.Extent.StartOffset
-        }, $true)
-  
-    if ($asts.Count -eq 0) {
-        [Microsoft.PowerShell.PSConsoleReadLine]::Ding()
-        return
-    }
-    
-    $nextAst = $null
-
-    if ($null -ne $arg) {
-        $nextAst = $asts[$arg - 1]
-    } else {
-        foreach ($ast in $asts) {
-            if ($ast.Extent.StartOffset -ge $cursor) {
-                $nextAst = $ast
-                break
-            }
-        } 
-        
-        if ($null -eq $nextAst) {
-            $nextAst = $asts[0]
-        }
-    }
-
-    $startOffsetAdjustment = 0
-    $endOffsetAdjustment = 0
-
-    if ($nextAst -is [System.Management.Automation.Language.StringConstantExpressionAst] -and
-        $nextAst.StringConstantType -ne [System.Management.Automation.Language.StringConstantType]::BareWord) {
-        $startOffsetAdjustment = 1
-        $endOffsetAdjustment = 2
-    }
-  
-    [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($nextAst.Extent.StartOffset + $startOffsetAdjustment)
-    [Microsoft.PowerShell.PSConsoleReadLine]::SetMark($null, $null)
-    [Microsoft.PowerShell.PSConsoleReadLine]::SelectForwardChar($null, ($nextAst.Extent.EndOffset - $nextAst.Extent.StartOffset) - $endOffsetAdjustment)
-}
-
 
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
@@ -561,7 +458,7 @@ Set-PSReadLineOption -EditMode Windows
 
 # This is an example of a macro that you might use to execute a command.
 # This will add the command to history.
-Set-PSReadLineKeyHandler -Key Ctrl+Shift+u `
+Set-PSReadLineKeyHandler -Key Ctrl+Shift+a `
     -BriefDescription BuildCurrentDirectory `
     -LongDescription 'Apply the current terraform infrastructure.' `
     -ScriptBlock {
