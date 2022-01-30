@@ -1,10 +1,19 @@
+###
 # General environment setup
+###
+
+## Prompt
 # Ob my posh prompt
 oh-my-posh --init --shell pwsh --config ~/github/my-setup/oh-my-posh.omp.json | Invoke-Expression
-
 # Coloring
 Import-Module -Name Terminal-Icons
 
+
+## Aliases
+Set-Alias -Name execTime -Value Get-History
+
+
+## Package manager
 # Current User Current Host
 # Chocolatey profile
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
@@ -12,10 +21,8 @@ if (Test-Path($ChocolateyProfile)) {
     Import-Module "$ChocolateyProfile"
 }
 
-try {
-    ## Home Brew setup for powershell
-    if ($IsMacOS) { $(/opt/homebrew/bin/brew shellenv) | Invoke-Expression }  
-} catch {}
+## Home Brew setup for powershell
+if ($IsMacOS) { $(/opt/homebrew/bin/brew shellenv) | Invoke-Expression }
 
 
 ###
@@ -26,12 +33,14 @@ Import-Module $Path/pwsh-toolbox/modules/EKS -Force
 Import-Module $Path/pwsh-toolbox/modules/PSEnv -Force
 Import-Module $Path/pwsh-toolbox/modules/HistoryHelper -Force
 
+
 ###
 # Kubernetes
 ###
 $env:KUBE_EDITOR = 'code -w'
 Register-KubectlCompletion
 Set-Alias -Name 'k' -Value 'kubectl' -Description 'Kubernetes cli'
+
 
 ###
 # Auto completion
@@ -64,9 +73,26 @@ if ($host.Name -eq 'ConsoleHost') {
     Import-Module PSReadLine
 }
 
-################
-## PSReadLine ##
-################
+# Command shortcuts
+# This is an example of a macro that you might use to execute a command.
+# This will also add the command to history.
+Set-PSReadLineKeyHandler -Key Ctrl+Shift+a `
+    -BriefDescription BuildCurrentDirectory `
+    -LongDescription 'Apply the current terraform infrastructure.' `
+    -ScriptBlock {
+    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+    [Microsoft.PowerShell.PSConsoleReadLine]::Insert('terraform apply')
+    [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+}
+
+Set-PSReadLineKeyHandler -Key Ctrl+Shift+d `
+    -BriefDescription BuildCurrentDirectory `
+    -LongDescription 'Destroy the current terraform infrastructure.' `
+    -ScriptBlock {
+    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+    [Microsoft.PowerShell.PSConsoleReadLine]::Insert('terraform destroy')
+    [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+}
 
 # Don't add commands with a leading space to the history.
 Set-PSReadLineOption -AddToHistoryHandler {
@@ -454,24 +480,3 @@ Set-PSReadLineKeyHandler -Key RightArrow `
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
-
-
-# This is an example of a macro that you might use to execute a command.
-# This will add the command to history.
-Set-PSReadLineKeyHandler -Key Ctrl+Shift+a `
-    -BriefDescription BuildCurrentDirectory `
-    -LongDescription 'Apply the current terraform infrastructure.' `
-    -ScriptBlock {
-    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
-    [Microsoft.PowerShell.PSConsoleReadLine]::Insert('terraform apply')
-    [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
-}
-
-Set-PSReadLineKeyHandler -Key Ctrl+Shift+d `
-    -BriefDescription BuildCurrentDirectory `
-    -LongDescription 'Destroy the current terraform infrastructure.' `
-    -ScriptBlock {
-    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
-    [Microsoft.PowerShell.PSConsoleReadLine]::Insert('terraform destroy')
-    [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
-}
