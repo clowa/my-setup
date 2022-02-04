@@ -1,5 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 1,
   "final_space": true,
   "console_title": true,
   "console_title_style": "folder",
@@ -9,8 +10,6 @@
       "type": "prompt",
       "alignment": "left",
       "newline": true,
-      "horizontal_offset": 0,
-      "vertical_offset": 0,
       "segments": [
         {
           "type": "os",
@@ -18,7 +17,10 @@
           "foreground": "#ffffff",
           "background": "#2e9599",
           "leading_diamond": "",
-          "trailing_diamond": ""
+          "trailing_diamond": "",
+          "properties": {
+            "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} "
+          }
         },
         {
           "type": "shell",
@@ -27,8 +29,7 @@
           "background": "#0077c2",
           "powerline_symbol": "",
           "properties": {
-            "prefix": "  ",
-            "postfix": " "
+            "template": "  {{ .Name }} "
           }
         },
         {
@@ -38,8 +39,7 @@
           "foreground": "#000000",
           "background": "#FFA400",
           "properties": {
-            "prefix": "  ",
-            "template": "{{.Profile}}{{if .Region}}@{{.Region}}{{end}}"
+            "template": "  {{.Profile}}{{if .Region}}@{{.Region}}{{end}} "
           }
         },
         {
@@ -48,11 +48,12 @@
           "powerline_symbol": "",
           "foreground": "#000000",
           "background": "#9ec3f0",
+
           "properties": {
             "display_id": false,
             "display_name": true,
             "info_separator": " @ ",
-            "prefix": " ﴃ "
+            "template": " ﴃ {{ .Name }} "
           }
         },
         {
@@ -62,8 +63,7 @@
           "foreground": "#ffffff",
           "background": "#326ce5",
           "properties": {
-            "prefix": " ﴱ ",
-            "template": "{{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}"
+            "template": " ﴱ {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}} "
           }
         }
       ]
@@ -72,14 +72,11 @@
       "type": "prompt",
       "alignment": "left",
       "newline": true,
-      "horizontal_offset": 0,
-      "vertical_offset": 0,
       "segments": [
         {
           "type": "path",
           "style": "diamond",
           "powerline_symbol": "",
-          "invert_powerline": false,
           "foreground": "#000000",
           "background": "#21c7a8",
           "leading_diamond": "",
@@ -88,7 +85,7 @@
             "style": "folder",
             "home_icon": " ",
             "folder_icon": "",
-            "enable_hyperlink": true,
+            "template": " {{ .Path }} ",
             "mapped_locations": {
               "~\\github": ""
             }
@@ -98,32 +95,28 @@
           "type": "git",
           "style": "powerline",
           "powerline_symbol": "",
-          "invert_powerline": false,
           "foreground": "#011627",
           "background": "#82AAFF",
-          "leading_diamond": "",
-          "trailing_diamond": "",
+
           "properties": {
-            "display_status": true,
-            "display_stash_count": true,
-            "display_upstream_icon": true
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "template": " {{ .HEAD }} {{ .BranchStatus }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0}} \uf692 {{ .StashCount }}{{ end }}{{ if gt .WorktreeCount 0}} \uf1bb {{ .WorktreeCount }}{{ end }} "
           }
         },
         {
           "type": "exit",
           "style": "powerline",
           "powerline_symbol": "",
-          "invert_powerline": false,
           "foreground": "#ffffff",
           "background": "#2e9599",
-          "leading_diamond": "",
           "trailing_diamond": "",
+          "background_templates": ["{{ if gt .Code 0 }}#f1184c{{ end }}"],
+
           "properties": {
             "always_enabled": true,
-            "color_background": true,
-            "display_exit_code": false,
-            "error_color": "#f1184c",
-            "prefix": " "
+            "template": " "
           }
         }
       ]
