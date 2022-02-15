@@ -4,7 +4,7 @@
 
 ## Prompt
 # Ob my posh prompt
-oh-my-posh --init --shell pwsh --config ~/github/my-setup/oh-my-posh.omp.json | Invoke-Expression
+oh-my-posh --init --shell pwsh --config $HOME/github/my-setup/oh-my-posh.omp.json | Invoke-Expression
 # Coloring
 Import-Module -Name Terminal-Icons
 
