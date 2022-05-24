@@ -29,7 +29,7 @@ if ($IsMacOS) { $(/opt/homebrew/bin/brew shellenv) | Invoke-Expression }
 # Additional modules
 ###
 $Path = Split-Path -Path ((Get-Item $PROFILE).Target) -Parent # Get the path of THIS file.
-Import-Module $Path/pwsh-toolbox/modules/EKS -Force
+Import-Module $Path/pwsh-toolbox/modules/AWSTools -Force
 Import-Module $Path/pwsh-toolbox/modules/MyToolbox -Force
 
 
