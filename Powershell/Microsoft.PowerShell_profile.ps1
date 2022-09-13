@@ -11,6 +11,7 @@ Import-Module -Name Terminal-Icons
 
 ## Aliases
 Set-Alias -Name execTime -Value Get-History
+Set-Alias -Name tf -Value terraform
 
 
 ## Package manager

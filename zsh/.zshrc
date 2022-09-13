@@ -6,6 +6,9 @@
 alias k=kubectl # generall shortcut
 alias kcd='kubectl config set-context $(kubectl config current-context) --namespace ' # quickly change namespace
 
+# terraform
+alias tf=terraform
+
 ###
 # Homebrew 
 ###
