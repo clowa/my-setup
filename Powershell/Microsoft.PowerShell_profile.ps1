@@ -32,6 +32,15 @@ $Path = Split-Path -Path ((Get-Item $PROFILE).Target) -Parent # Get the path of 
 Import-Module $Path/pwsh-toolbox/modules/AWSTools -Force
 Import-Module $Path/pwsh-toolbox/modules/MyToolbox -Force
 
+###
+# 1Password
+###
+## Configure 1Password ssh-agent
+## See: https://developer.1password.com/docs/ssh/agent/compatibility#openssh
+if ($IsMacOS) { $env:SSH_AUTH_SOCK = "$HOME/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock" }
+elseif ($IsLinux) { $env:SSH_AUTH_SOCK = "$HOME/.1password/agent.sock" }
+
+
 
 ###
 # Kubernetes
