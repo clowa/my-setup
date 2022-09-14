@@ -10,6 +10,11 @@ function Get-ShouldOverwrite {
         $Prompt
     )
 
+    if (-Not (Test-Path $Path)) {
+        Write-Verbose "Path is not present."
+        return $true
+    }
+
     if (Test-Path $Path) {
         $answer = Read-Host -Prompt $Prompt 
         if ($answer -eq "y" -or $answer -eq "yes") {
