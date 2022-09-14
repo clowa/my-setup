@@ -37,7 +37,9 @@ Import-Module $Path/pwsh-toolbox/modules/MyToolbox -Force
 # Kubernetes
 ###
 $env:KUBE_EDITOR = 'code -w'
-Register-KubectlCompletion
+# Powershell kubectl autocompletion 
+# See: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#enable-shell-autocompletion
+kubectl completion powershell | Out-String | Invoke-Expression
 Set-Alias -Name 'k' -Value 'kubectl' -Description 'Kubernetes cli'
 
 
@@ -45,13 +47,26 @@ Set-Alias -Name 'k' -Value 'kubectl' -Description 'Kubernetes cli'
 # Auto completion
 ###
 
-# Winget 
-Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
+## General
+
+# PowerShell parameter completion for terraform (very basic)
+Register-ArgumentCompleter -Native -CommandName terraform -ScriptBlock {
+    param($lastWord, $inputString, $cursorPosition)
+    $cmd = "{0} {1}" -f $inputString.Substring(0, $inputString.LastIndexOf($lastWord)).Trim(), "-h"
+    # Invoke-Expression $cmd | Where-Object { $_ -match "^\s{2}$lastWord.*?\s" } | ForEach-Object {
+    $cmd | Out-String | Invoke-Expression | Where-Object { $_ -match "^\s{2}$lastWord.*?\s" } | ForEach-Object {
+        $arg = ($_ -split '  ' | Where-Object { $_ } | Select-Object -First 1).Trim()
+        [System.Management.Automation.CompletionResult]::new($arg, $arg, 'ParameterValue', $arg)
+    }
+}
+
+# PowerShell core autocompletion
+Register-ArgumentCompleter -Native -CommandName pwsh -ScriptBlock {
     param($wordToComplete, $commandAst, $cursorPosition)
-    [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
-    $Local:word = $wordToComplete.Replace('"', '""')
-    $Local:ast = $commandAst.ToString().Replace('"', '""')
-    winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
+    Write-Output -- -PSConsoleFile -Version -NoLogo -NoExit -Sta -NoProfile -NonInteractive `
+        -InputFormat -OutputFormat -WindowStyle -EncodedCommand -File -ExecutionPolicy `
+        -Command |
+    Where-Object { $_ -like "$wordToComplete*" } | Sort-Object | ForEach-Object {
         [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
     }
 }
@@ -60,6 +75,19 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
 Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
     param($commandName, $wordToComplete, $cursorPosition)
     dotnet complete --position $cursorPosition "$wordToComplete" | ForEach-Object {
+        [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+    }
+}
+
+## WINDOWS
+
+# Winget 
+Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
+    param($wordToComplete, $commandAst, $cursorPosition)
+    [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
+    $Local:word = $wordToComplete.Replace('"', '""')
+    $Local:ast = $commandAst.ToString().Replace('"', '""')
+    winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
         [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
     }
 }
@@ -75,7 +103,7 @@ if ($host.Name -eq 'ConsoleHost') {
 # Command shortcuts
 # This is an example of a macro that you might use to execute a command.
 # This will also add the command to history.
-Set-PSReadLineKeyHandler -Key Ctrl+Shift+a `
+Set-PSReadLineKeyHandler -Chord Ctrl+Shift+a `
     -BriefDescription BuildCurrentDirectory `
     -LongDescription 'Apply the current terraform infrastructure.' `
     -ScriptBlock {
@@ -84,7 +112,7 @@ Set-PSReadLineKeyHandler -Key Ctrl+Shift+a `
     [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
 
-Set-PSReadLineKeyHandler -Key Ctrl+Shift+d `
+Set-PSReadLineKeyHandler -Chord Ctrl+Shift+d `
     -BriefDescription BuildCurrentDirectory `
     -LongDescription 'Destroy the current terraform infrastructure.' `
     -ScriptBlock {
@@ -114,19 +142,19 @@ Set-PSReadLineOption -AddToHistoryHandler {
 # without that option, the cursor will remain at the position it was
 # when you used up arrow, which can be useful if you forget the exact
 # string you started the search on.
-Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
-Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+Set-PSReadLineKeyHandler -Chord UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Chord DownArrow -Function HistorySearchForward
 
 # The built-in word movement uses character delimiters, but token based word
 # movement is also very useful - these are the bindings you'd use if you
 # prefer the token based movements bound to the normal emacs word movement
 # key bindings.
-Set-PSReadLineKeyHandler -Key Alt+d -Function ShellKillWord
-Set-PSReadLineKeyHandler -Key Alt+Backspace -Function ShellBackwardKillWord
-Set-PSReadLineKeyHandler -Key Alt+b -Function ShellBackwardWord
-Set-PSReadLineKeyHandler -Key Alt+f -Function ShellForwardWord
-Set-PSReadLineKeyHandler -Key Alt+B -Function SelectShellBackwardWord
-Set-PSReadLineKeyHandler -Key Alt+F -Function SelectShellForwardWord
+Set-PSReadLineKeyHandler -Chord Alt+d -Function ShellKillWord
+Set-PSReadLineKeyHandler -Chord Alt+Backspace -Function ShellBackwardKillWord
+Set-PSReadLineKeyHandler -Chord Alt+b -Function ShellBackwardWord
+Set-PSReadLineKeyHandler -Chord Alt+f -Function ShellForwardWord
+Set-PSReadLineKeyHandler -Chord Alt+b -Function SelectShellBackwardWord
+Set-PSReadLineKeyHandler -Chord Alt+f -Function SelectShellForwardWord
 
 #region Smart Insert/Delete
 
@@ -135,7 +163,7 @@ Set-PSReadLineKeyHandler -Key Alt+F -Function SelectShellForwardWord
 # in the module that do this, but this implementation still isn't as smart
 # as ReSharper, so I'm just providing it as a sample.
 
-Set-PSReadLineKeyHandler -Key '"', "'" `
+Set-PSReadLineKeyHandler -Chord '"', "'" `
     -BriefDescription SmartInsertQuote `
     -LongDescription 'Insert paired quotes if not already on a quote' `
     -ScriptBlock {
@@ -229,7 +257,7 @@ Set-PSReadLineKeyHandler -Key '"', "'" `
     [Microsoft.PowerShell.PSConsoleReadLine]::Insert($quote)
 }
 
-Set-PSReadLineKeyHandler -Key '(', '{', '[' `
+Set-PSReadLineKeyHandler -Chord '(', '{', '[' `
     -BriefDescription InsertPairedBraces `
     -LongDescription 'Insert matching braces' `
     -ScriptBlock {
@@ -260,7 +288,7 @@ Set-PSReadLineKeyHandler -Key '(', '{', '[' `
     }
 }
 
-Set-PSReadLineKeyHandler -Key ')', ']', '}' `
+Set-PSReadLineKeyHandler -Chord ')', ']', '}' `
     -BriefDescription SmartCloseBraces `
     -LongDescription 'Insert closing brace or skip' `
     -ScriptBlock {
@@ -277,7 +305,7 @@ Set-PSReadLineKeyHandler -Key ')', ']', '}' `
     }
 }
 
-Set-PSReadLineKeyHandler -Key Backspace `
+Set-PSReadLineKeyHandler -Chord Backspace `
     -BriefDescription SmartBackspace `
     -LongDescription 'Delete previous character or matching quotes/parens/braces' `
     -ScriptBlock {
@@ -313,7 +341,7 @@ Set-PSReadLineKeyHandler -Key Backspace `
 # This binding will let you save that command in the history so you can recall it,
 # but it doesn't actually execute.  It also clears the line with RevertLine so the
 # undo stack is reset - though redo will still reconstruct the command line.
-Set-PSReadLineKeyHandler -Key Alt+w `
+Set-PSReadLineKeyHandler -Chord Alt+w `
     -BriefDescription SaveInHistory `
     -LongDescription 'Save current line in history but do not execute' `
     -ScriptBlock {
@@ -327,7 +355,7 @@ Set-PSReadLineKeyHandler -Key Alt+w `
 }
 
 # Insert text from the clipboard as a here string
-Set-PSReadLineKeyHandler -Key Ctrl+V `
+Set-PSReadLineKeyHandler -Chord Ctrl+v `
     -BriefDescription PasteAsHereString `
     -LongDescription 'Paste the clipboard text as a here string' `
     -ScriptBlock {
@@ -336,7 +364,7 @@ Set-PSReadLineKeyHandler -Key Ctrl+V `
     Add-Type -Assembly PresentationCore
     if ([System.Windows.Clipboard]::ContainsText()) {
         # Get clipboard text - remove trailing spaces, convert \r\n to \n, and remove the final \n.
-        $text = ([System.Windows.Clipboard]::GetText() -replace "\p{Zs}*`r?`n", "`n").TrimEnd()
+        $text = ([System.Windows.Clipboard]::GetText() -replace "\p{ Zs }*`r?`n", "`n").TrimEnd()
         [Microsoft.PowerShell.PSConsoleReadLine]::Insert("@'`n$text`n'@")
     } else {
         [Microsoft.PowerShell.PSConsoleReadLine]::Ding()
@@ -346,7 +374,7 @@ Set-PSReadLineKeyHandler -Key Ctrl+V `
 # Sometimes you want to get a property of invoke a member on what you've entered so far
 # but you need parens to do that.  This binding will help by putting parens around the current selection,
 # or if nothing is selected, the whole line.
-Set-PSReadLineKeyHandler -Key 'Alt+(' `
+Set-PSReadLineKeyHandler -Chord 'Alt+(' `
     -BriefDescription ParenthesizeSelection `
     -LongDescription 'Put parenthesis around the selection or entire line and move the cursor to after the closing parenthesis' `
     -ScriptBlock {
@@ -369,7 +397,7 @@ Set-PSReadLineKeyHandler -Key 'Alt+(' `
 }
 
 # This example will replace any aliases on the command line with the resolved commands.
-Set-PSReadLineKeyHandler -Key 'Alt+r' `
+Set-PSReadLineKeyHandler -Chord 'Alt+r' `
     -BriefDescription ExpandAliases `
     -LongDescription 'Replace all aliases with the full command' `
     -ScriptBlock {
@@ -405,7 +433,7 @@ Set-PSReadLineKeyHandler -Key 'Alt+r' `
 }
 
 # F1 for help on the command line - naturally
-Set-PSReadLineKeyHandler -Key F1 `
+Set-PSReadLineKeyHandler -Chord F1 `
     -BriefDescription CommandHelp `
     -LongDescription 'Open the help window for the current command' `
     -ScriptBlock {
@@ -458,7 +486,7 @@ Set-PSReadLineOption -CommandValidationHandler {
 
 # `ForwardChar` accepts the entire suggestion text when the cursor is at the end of the line.
 # This custom binding makes `RightArrow` behave similarly - accepting the next word instead of the entire suggestion text.
-Set-PSReadLineKeyHandler -Key RightArrow `
+Set-PSReadLineKeyHandler -Chord RightArrow `
     -BriefDescription ForwardCharAndAcceptNextSuggestionWord `
     -LongDescription "Move cursor one character to the right in the current editing line and accept the next word in suggestion when it's at the end of current editing line" `
     -ScriptBlock {
