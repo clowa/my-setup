@@ -1,0 +1,21 @@
+[core]
+	editor = code --wait
+	autocrlf = false
+	eol = lf
+[user]
+	name = Cedric Ahlers
+	email = 55838528+clowa@users.noreply.github.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK6W0FV8WNO8U5Htme4kXRtaCd9aCLhxZOfU3o1Xj7J9
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[commit]
+	gpgsign = true
+[diff]
+	rename = true
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
