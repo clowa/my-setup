@@ -1,6 +1,3 @@
-Import-Module ../modules/FontHelper/FontHelper.psm1
-Import-Module ../modules/ConfigurationHelper/ConfigurationHelper.psm1
-
 $modules = @(
     @{
         Name            = 'Terminal-Icons'
@@ -42,6 +39,9 @@ Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
 foreach ($module in $modules) {
     Install-Module @module 
 }
+
+Import-Module ../modules/FontHelper/FontHelper.psm1
+Import-Module ../modules/ConfigurationHelper/ConfigurationHelper.psm1
 
 if (-Not (Test-Path $configGitRepoPath)) {
     Write-Host 'Cloneing config repository ...'
