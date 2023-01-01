@@ -8,6 +8,7 @@ alias kcd='kubectl config set-context $(kubectl config current-context) --namesp
 
 # terraform
 alias tf=terraform
+alias tm=terramate
 
 ###
 # Homebrew 
@@ -37,6 +38,11 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#949494"
 # enable zsh completion
 autoload -Uz compinit
 compinit
+
+# terramate shell completion
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terramate terramate
+
 
 ###
 # Golang
