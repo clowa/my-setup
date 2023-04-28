@@ -26,6 +26,11 @@ eval "$(oh-my-posh --init --shell zsh --config $HOME/github/my-setup/oh-my-posh.
 ###
 # Zsh Plugins
 ###
+
+## Enable zsh syntax highlighting beofore all other plugins to work properly
+# See: https://github.com/zsh-users/zsh-history-substring-search
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 ## Enable zsh autosuggestions 
 # See: https://github.com/zsh-users/zsh-autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh

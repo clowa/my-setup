@@ -4,3 +4,6 @@
 [submodule "Powershell/pwsh-toolbox"]
 	path = Powershell/pwsh-toolbox
 	url = https://github.com/clowa/pwsh-toolbox.git
+[submodule "zsh/.zsh/zsh-syntax-highlighting"]
+	path = zsh/.zsh/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
