@@ -15,7 +15,7 @@ alias tm=terramate
 ###
 
 # Add brew bin to Path environment
-BREW_BIN_PATH='/opt/homebrew/bin'
+BREW_BIN_PATH="$HOMEBREW_REPOSITORY/bin"
 export PATH=$BREW_BIN_PATH:$PATH
 
 ###
@@ -41,7 +41,7 @@ compinit
 
 # terramate shell completion
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terramate terramate
+complete -o nospace -C $HOMEBREW_REPOSITORY/bin/terramate terramate
 
 
 ###
