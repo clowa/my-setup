@@ -21,3 +21,5 @@
 	clean = git-lfs clean -- %f
 [push]
 	autoSetupRemote = true
+[init]
+	defaultBranch = main
