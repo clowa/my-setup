@@ -55,6 +55,14 @@ else
     echo "Azure CLI is not installed"
 fi
 
+# argocd completion
+if which argocd &>/dev/null; then
+  source <(argocd completion zsh)
+  compdef _argocd argocd
+else
+    echo "ArgoCD CLI is not installed"
+fi
+
 ###
 # Golang
 ###
