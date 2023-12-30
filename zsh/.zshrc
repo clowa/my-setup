@@ -49,8 +49,11 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C $HOMEBREW_REPOSITORY/bin/terramate terramate
 
 # azure cli completion
-autoload bashcompinit && bashcompinit
-source $HOMEBREW_CELLAR/azure-cli/2.48.1/etc/bash_completion.d/az
+if which az &>/dev/null; then
+  source $HOMEBREW_CELLAR/azure-cli/*/etc/bash_completion.d/az
+else
+    echo "Azure CLI is not installed"
+fi
 
 ###
 # Golang
