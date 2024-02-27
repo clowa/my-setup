@@ -10,6 +10,10 @@ alias kcd='kubectl config set-context $(kubectl config current-context) --namesp
 alias tf=terraform
 alias tm=terramate
 
+# compression
+# xz on all cores and 70% of memory
+alias xzH='xz -T0 --memory=70%'
+
 ###
 # Homebrew 
 ###
