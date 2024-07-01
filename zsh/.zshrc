@@ -42,6 +42,25 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#949494"
 
+## Enable zsh openai codex
+# See: https://github.com/tom-doerr/zsh_codex
+
+# Check if file ~/.config/openaiapirc exists
+if [ -f ~/.config/openaiapirc ]; then
+  export ZSH_CUSTOM="$HOME/.zsh"
+  source $ZSH_CUSTOM/plugins/zsh_codex/zsh_codex.plugin.zsh
+  bindkey '^X' create_completion  
+
+  ## Activate virtual python environment for zsh
+  export ZSH_CODEX_PYTHON="$HOME/.zsh/venv/bin/python"
+
+  ## Enable comments in interactive shell mode to allow to instruct AI
+  setopt interactive_comments
+else
+  echo "OpenAI configuration file at ~/.config/openaiapirc does not exist. Skipping zsh_codex plugin."
+fi
+
+
 ###
 # Shell completion
 ###
