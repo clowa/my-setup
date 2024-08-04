@@ -69,6 +69,11 @@ fi
 autoload -Uz compinit
 compinit
 
+# terraform completion
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+# completion for terraform alias
+complete -o nospace -C /opt/homebrew/bin/terraform tf
+
 # terramate shell completion
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C $HOMEBREW_REPOSITORY/bin/terramate terramate
@@ -147,3 +152,4 @@ export PATH="${PATH}:${HOME}/bin"
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$BREW_NVM_DIR/nvm.sh" ] && . "$BREW_NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$BREW_NVM_DIR/bash_completion" ] && . "$BREW_NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
