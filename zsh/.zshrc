@@ -66,6 +66,8 @@ fi
 ###
 
 # enable zsh completion
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
 autoload -Uz compinit
 compinit
 
@@ -75,7 +77,6 @@ complete -o nospace -C /opt/homebrew/bin/terraform terraform
 complete -o nospace -C /opt/homebrew/bin/terraform tf
 
 # terramate shell completion
-autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C $HOMEBREW_REPOSITORY/bin/terramate terramate
 
 # azure cli completion
