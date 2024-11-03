@@ -1,3 +1,8 @@
 # Install ob my posh as promt engine
-brew tap jandedobbeleer/oh-my-posh
-brew install oh-my-posh
+if (!(Get-Command -Name brew -ErrorAction SilentlyContinue)) {
+    Write-Warning "Homebrew is not installed. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+
+Write-Host "Installing Homebrew packages..."
+brew bundle install --file=$PSScriptRoot/Brewfile
