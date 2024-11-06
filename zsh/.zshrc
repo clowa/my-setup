@@ -10,6 +10,7 @@ alias kcd='kubectl config set-context $(kubectl config current-context) --namesp
 alias tf=terraform
 alias tfyolo='terraform apply -auto-approve'
 alias tffuckup='terraform destroy -auto-approve'
+alias tfdocs='terraform-docs --output-file README.md markdown .'
 alias tm=terramate
 
 # compression
