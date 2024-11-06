@@ -10,6 +10,7 @@
 	format = ssh
 [gpg "ssh"]
 	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+	; program = /Users/cahlers/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock
 [commit]
 	gpgsign = true
 [diff]
