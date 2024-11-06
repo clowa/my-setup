@@ -28,7 +28,7 @@ export PATH=$BREW_BIN_PATH:$PATH
 ###
 # Promt
 ###
-eval "$(oh-my-posh --init --shell zsh --config $HOME/github/my-setup/oh-my-posh.omp.json)"
+eval "$(oh-my-posh init zsh --config $HOME/github/my-setup/oh-my-posh.omp.json)"
 
 ###
 # Zsh Plugins
