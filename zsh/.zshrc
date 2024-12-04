@@ -13,6 +13,11 @@ alias tffuckup='terraform destroy -auto-approve'
 alias tfdocs='terraform-docs --output-file README.md markdown .'
 alias tm=terramate
 
+# macOS aliases
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  alias rm=trash
+fi
+
 # compression
 # xz on all cores and 70% of memory
 alias xzH='xz -T0 --memory=70%'
