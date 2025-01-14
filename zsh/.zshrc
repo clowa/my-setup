@@ -51,8 +51,8 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#949494"
 ## Enable zsh openai codex
 # See: https://github.com/tom-doerr/zsh_codex
 
-# Check if file ~/.config/openaiapirc exists
-if [ -f ~/.config/openaiapirc ]; then
+# Check if file ~/.config/zsh_codex.ini exists
+if [ -f ~/.config/zsh_codex.ini ]; then
   export ZSH_CUSTOM="$HOME/.zsh"
   source $ZSH_CUSTOM/plugins/zsh_codex/zsh_codex.plugin.zsh
   bindkey '^X' create_completion  
@@ -63,7 +63,7 @@ if [ -f ~/.config/openaiapirc ]; then
   ## Enable comments in interactive shell mode to allow to instruct AI
   setopt interactive_comments
 else
-  echo "OpenAI configuration file at ~/.config/openaiapirc does not exist. Skipping zsh_codex plugin."
+  echo "OpenAI configuration file at ~/.config/zsh_codex.ini does not exist. Skipping zsh_codex plugin."
 fi
 
 
