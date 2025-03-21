@@ -14,7 +14,7 @@ echo 'Outdated packages:'
 brew outdated --quiet
 
 echo 'Upgrading packages ...'
-brew upgrade && brew upgrade hashicorp/tap/packer
+brew upgrade
 
 echo 'Upgrading casks ...'
 brew upgrade --cask

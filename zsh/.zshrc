@@ -22,6 +22,10 @@ fi
 # xz on all cores and 70% of memory
 alias xzH='xz -T0 --memory=70%'
 
+## homebrew
+alias brewup='brew update && brew upgrade && brew upgrade --cask && brew autoremove && brew cleanup'
+alias brewsave='brew bundle dump'
+
 ###
 # Homebrew 
 ###
