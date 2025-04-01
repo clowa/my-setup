@@ -104,6 +104,12 @@ else
     echo "ArgoCD CLI is not installed"
 fi
 
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/cahlers/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+
 ###
 # Golang
 ###
@@ -163,4 +169,3 @@ export PATH="${PATH}:${HOME}/bin"
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$BREW_NVM_DIR/nvm.sh" ] && . "$BREW_NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$BREW_NVM_DIR/bash_completion" ] && . "$BREW_NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
