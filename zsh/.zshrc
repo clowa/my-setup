@@ -10,12 +10,14 @@ alias kcd='kubectl config set-context $(kubectl config current-context) --namesp
 alias tf=terraform
 alias tfyolo='terraform apply -auto-approve'
 alias tffuckup='terraform destroy -auto-approve'
+alias tfupgrade='terraform init -upgrade'
 alias tfdocs='terraform-docs --output-file README.md markdown .'
 alias tm=terramate
 
 # macOS aliases
 if [[ "$OSTYPE" == "darwin"* ]]; then
   alias rm=trash
+  alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 fi
 
 # compression
