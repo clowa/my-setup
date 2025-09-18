@@ -18,6 +18,7 @@
     tool = vscode
 [difftool]
 	prompt = false
+	tool = vscode
 [difftool "vscode"]
     cmd = code --wait --diff $LOCAL $REMOTE
 [merge]
