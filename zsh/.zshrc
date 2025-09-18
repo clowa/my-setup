@@ -20,6 +20,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 fi
 
+# Github
+if which gh &>/dev/null; then
+  alias ask='gh copilot suggest -t shell'
+fi
+
 # compression
 # xz on all cores and 70% of memory
 alias xzH='xz -T0 --memory=70%'
