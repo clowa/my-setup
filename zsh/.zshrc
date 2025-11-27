@@ -20,6 +20,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 fi
 
+# apple containers
+if which container &>/dev/null; then
+  alias c='container'
+  alias container-clean="container ls --all --format json | jq -r '.[] | select(.status == \"stopped\") | .configuration.id' | xargs -r container rm"
+fi
+
 # Github
 if which gh &>/dev/null; then
   alias ask='gh copilot suggest -t shell'
