@@ -12,6 +12,7 @@ alias tfyolo='terraform apply -auto-approve'
 alias tffuckup='terraform destroy -auto-approve'
 alias tfupgrade='terraform init -upgrade'
 alias tfdocs='terraform-docs --output-file README.md markdown .'
+alias tfdocs-recursive='find . -type f -name "README.md" -execdir terraform-docs markdown . --output-file README.md \;'
 alias tm=terramate
 
 # macOS aliases
