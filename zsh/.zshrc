@@ -172,7 +172,7 @@ fi
 # Ollama
 ###
 # Alias to pull the latest Ollama image and run the container
-alias ollama-start='docker pull ollama/ollama:latest && docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama:latest'
+alias ollama-start='docker pull ollama/ollama:latest && docker run -d -v ~/.ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama:latest'
 
 # Alias to stop the Ollama container
 alias ollama-stop='docker stop ollama && docker rm ollama > /dev/null'
@@ -180,11 +180,8 @@ alias ollama-stop='docker stop ollama && docker rm ollama > /dev/null'
 # Alias to exec into the running Ollama container
 alias ollama-shell='docker exec -it ollama /bin/bash'
 
-# Alias to list all models in Ollama
-alias ollama-list='docker exec -it ollama ollama list'
-
-# Alias to pull a model from Ollama
-alias ollama-pull='docker exec -it ollama ollama pull $1'
+# Alias to make it feel like ollama is running without container
+alias ollama='docker exec -it ollama ollama "$@"'
 
 ###
 # Export binarys
