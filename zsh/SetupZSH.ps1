@@ -1,6 +1,6 @@
 Import-Module ../modules/ConfigurationHelper/ConfigurationHelper.psm1
 
-$configGitRepoPath = if (Test-Path "$HOME/github/my-setup") { "$HOME/github/my-setup" } elseif (Test-Path "$PSScriptRoot/../../my-setup") { Resolve-Path -Path "$PSScriptRoot/../../my-setup" } else { $null }
+$configGitRepoPath = Get-MySetupPath
 
 
 if (Get-ShouldOverwrite -Prompt "File ~/.zshrc is present. Do you want to overwrite? (y/n)" -Path $HOME/.zshrc) {
