@@ -6,6 +6,24 @@
     "model": "openai/gpt-5.2",
     "autoupdate": true,
     "mcp": {
+        /////////////////////
+        // NOTES
+        // - docker images have to be pulled manually before first use
+        /////////////////////
+        // DuckDuckGO MCP server
+        // see: https://github.com/nickclyde/duckduckgo-mcp-server
+        // see: https://hub.docker.com/r/mcp/duckduckgo
+        "duckduckgo": {
+            "type": "local",
+            "command": [
+                "docker",
+                "run",
+                "-i",
+                "--rm",
+                "mcp/duckduckgo:latest"
+            ],
+            "enabled": true,
+        },
         // terraform MCP server
         // see: https://github.com/hashicorp/terraform-mcp-server
         "terraform_registry": {
@@ -43,12 +61,15 @@
         "microsoft_learn": {
             "type": "remote",
             "url": "https://learn.microsoft.com/api/mcp",
-            "enabled": false,
+            "enabled": true,
         }
     },
     "tools": {
         // disable MCP servers globally and enable per-agent to reduce context size
+        "duckduckgo": false,
         "terraform_registry": false,
-        "microsoft_azure": false
+        "microsoft_azure": false,
+        "microsoft_learn": true,
+        "microsoft_markitdown": false,
     }
 }
