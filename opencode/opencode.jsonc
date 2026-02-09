@@ -69,7 +69,7 @@
         "duckduckgo": false,
         "terraform_registry": false,
         "microsoft_azure": false,
-        "microsoft_docs": true,
+        "microsoft_docs": false,
         "microsoft_markitdown": false
     }
 }
