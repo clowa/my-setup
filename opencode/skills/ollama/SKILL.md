@@ -23,6 +23,28 @@ This skill should be triggered when:
 
 ## Quick Reference
 
+Ollama runs as a docker container. Every interaction with the ollama CLI has to be made via docker exec. For example, to list all models, you can run:
+
+```bash
+docker exec -it ollama ollama list
+``` 
+
+Use the following shell aliases to simplify interactions with the Ollama container:
+
+```bash
+# Alias to pull the latest Ollama image and run the container
+alias ollama-start='docker image ls --format "{{.Repository}}:{{.Tag}}" | grep ollama | head -n 1 | xargs -I {} docker run -d -v ~/.ollama:/root/.ollama -p 11434:11434 --name ollama {}'
+
+# Alias to stop the Ollama container
+alias ollama-stop='docker stop ollama && docker rm ollama > /dev/null'
+
+# Alias to exec into the running Ollama container
+alias ollama-shell='docker exec -it ollama /bin/bash'
+
+# Alias to make it feel like ollama is running without container
+alias ollama='docker exec -it ollama ollama "$@"'
+```
+
 ### 1. Basic Chat Completion (cURL)
 
 Generate a simple chat response:
