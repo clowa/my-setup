@@ -22,7 +22,7 @@
                 "--rm",
                 "mcp/duckduckgo:latest"
             ],
-            "enabled": true,
+            "enabled": true
         },
         // terraform MCP server
         // see: https://github.com/hashicorp/terraform-mcp-server
@@ -36,7 +36,7 @@
                 "hashicorp/terraform-mcp-server:0.4.0"
             ],
             "enabled": true,
-            "environment": {},
+            "environment": {}
         },
         // Azure MCP server
         // see: https://github.com/microsoft/mcp/blob/main/servers/Azure.Mcp.Server/README.md#docker
@@ -54,14 +54,14 @@
                 // "AZURE_TENANT_ID": "<your-tenant-id>",
                 // "AZURE_CLIENT_ID": "<your-client-id>",
                 // "AZURE_CLIENT_SECRET": "<your-client-secret>",
-            },
+            }
         },
         // Microsoft Learn
         // see: https://learn.microsoft.com/en-us/training/support/mcp-get-started
-        "microsoft_learn": {
+        "microsoft_docs": {
             "type": "remote",
             "url": "https://learn.microsoft.com/api/mcp",
-            "enabled": true,
+            "enabled": true
         }
     },
     "tools": {
@@ -69,7 +69,7 @@
         "duckduckgo": false,
         "terraform_registry": false,
         "microsoft_azure": false,
-        "microsoft_learn": true,
-        "microsoft_markitdown": false,
+        "microsoft_docs": true,
+        "microsoft_markitdown": false
     }
 }

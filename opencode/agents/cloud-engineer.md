@@ -79,7 +79,7 @@ temperature: 0.1
 tools:
     terraform_*: true
     microsoft_azure: true
-    microsoft_learn: true
+    microsoft_docs: true
     bash: true
     lsp: true
     skill: true
