@@ -68,7 +68,7 @@
         "drawio_app_server": {
             "type": "remote",
             "url": "https://www.draw.io/mcp",
-            "enabled": true
+            "enabled": false
         },
         "drawio_tool_server": {
             "type": "local",
@@ -81,7 +81,7 @@
                 "npx",
                 "@drawio/mcp"
             ],
-            "enabled": true
+            "enabled": false
         },
         // MARP MCP server
         // see: https://github.com/masaki39/marp-mcp
