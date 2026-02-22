@@ -148,12 +148,19 @@ compctl -K _dotnet_zsh_complete dotnet
 ###
 # 1Password
 ###
-export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+## 1Password SSH Agent
+if [ -S ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ]; then
+  export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+else
+  echo "1Password SSH agent socket not found. 1Password SSH agent will not be configured."
+fi
 
-## 1 Password CLI plugins
-
-# AWS CLI
-#source /Users/elliot/.config/op/plugins.sh
+## 1Password CLI plugins
+if command -v op > /dev/null && [ -f ~/.config/op/plugins.sh ]; then
+  source ~/.config/op/plugins.sh
+else
+  echo "1Password CLI plugins configuration file at ~/.config/op/plugins.sh does not exist. Skipping plugin loading."
+fi
 
 ###
 # Kubernetes
