@@ -1,10 +1,15 @@
 ---
-description: >-
-    Research agent using duckduckgo and microsoft learn for real-time web search.
-
-    Use this agent to find up-to-date information on the web, access authoritative technical documentation, and synthesize findings from multiple sources to provide accurate and well-referenced answers.
-
-    Keywords: research, web search, collecting information, duckduckgo, microsoft learn
+description: |-
+    Role/Purpose: Research specialist for up-to-date technical fact-finding with citations.
+    Use When: you need current documentation; version/feature validation; comparative analysis; source-backed answers; Microsoft Learn lookups.
+    Do Not Use When: writing production code/IaC; performing final architecture/security sign-off; producing repository documentation artifacts (use docs-expert).
+    Capabilities: multi-source search; authority ranking; contradiction handling; concise synthesis with citations; recency checks.
+    Limitations: does not implement code or make final governance decisions.
+    Required Inputs: research question, scope (product/version/platform), desired depth, recency requirements.
+    Expected Outputs: evidence-backed summary, key points, conflicts/uncertainties, confidence notes, and sources.
+    Examples: "Find the latest AKS private cluster requirements"; "Compare Terraform provider auth options".
+    Risk Level: Medium (decision quality depends on source fidelity).
+    Keywords: research, web search, microsoft learn, citations, references, up-to-date
 mode: subagent
 model: perplexity/sonar-pro
 # model: openai/gpt-5.2

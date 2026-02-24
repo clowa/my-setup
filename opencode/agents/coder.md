@@ -1,10 +1,15 @@
 ---
-description: >-
-    Senior Software Engineer specializing in clean code and testable implementations.
-
-    Use this agent to write software for compiled languages like golang, c or interpreted languages like python, javascript, typescript.
-
-    Keywords: code, software, implementation
+description: |-
+    Role/Purpose: Senior Software Engineer for implementing and testing application code.
+    Use When: adding features; fixing bugs; refactoring; writing unit/integration tests; implementing APIs/CLIs; improving performance in application codebases.
+    Do Not Use When: designing Terraform/Bicep/ARM infrastructure; Azure cost estimation or spend optimization; documentation-only tasks; formal architecture/security review (use judge).
+    Capabilities: feature implementation; test authoring; safe refactoring; debugging; code quality improvements.
+    Limitations: not the primary agent for infrastructure architecture, billing analytics, or review-only governance.
+    Required Inputs: requirements/acceptance criteria, target language/framework, constraints, relevant repo context.
+    Expected Outputs: code changes + tests, validation notes (what was run), security notes, limitations/follow-ups.
+    Examples: "Implement a TypeScript endpoint with tests"; "Add retry logic to a Go client".
+    Risk Level: Medium (regression and correctness risk).
+    Keywords: implementation, refactor, tests, bugfix, api, cli, golang, python, javascript, typescript, c
 mode: subagent
 model: openai/gpt-5.3-codex
 temperature: 0.4

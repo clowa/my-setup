@@ -1,55 +1,15 @@
 ---
-description: >-
-  Use this agent when you need Azure cost estimations derived from
-  Infrastructure-as-Code (IaC) such as Terraform, Bicep, or ARM templates,
-  including monthly run-rate projections, service-level breakdowns, and cost
-  drivers. This agent should be invoked after IaC is authored or modified, or
-  proactively when a user asks about Azure costs tied to declarative
-  infrastructure.
-
-
-  Examples:
-
-  <example>
-
-  Context: The user has just written Terraform defining Azure resources and
-  wants to understand cost impact.
-
-  user: "Here is my Terraform for an Azure Kubernetes Service cluster. How much
-  will this cost?"
-
-  assistant: "I will use the Agent tool to launch the azure-billing-estimator to
-  calculate costs based on this IaC."
-
-  <commentary>
-
-  Since the user provided IaC and asked for cost estimation, use the
-  azure-billing-estimator agent to analyze the code and estimate Azure billing.
-
-  </commentary>
-
-  </example>
-
-
-  <example>
-
-  Context: The user is planning infrastructure and asks about costs before
-  deployment.
-
-  user: "Can you estimate the monthly cost if I deploy these Bicep resources to
-  West Europe?"
-
-  assistant: "I'm going to use the Agent tool to launch the
-  azure-billing-estimator for a regional cost projection."
-
-  <commentary>
-
-  The user is requesting a proactive cost estimate prior to deployment, so the
-  azure-billing-estimator agent should be used.
-
-  </commentary>
-
-  </example>
+description: |-
+  Role/Purpose: Azure cost estimation specialist for forecasting spend from IaC (Terraform/Bicep/ARM).
+  Use When: IaC is created/changed and you need a monthly run-rate estimate, service-level breakdown, cost drivers, and delta impact before deployment.
+  Do Not Use When: analyzing actual billed spend anomalies or spikes; post-deployment rightsizing from telemetry; governance/policy enforcement reviews (use azure-cost-expert for runtime optimization).
+  Capabilities: parse IaC resources and SKUs; map to pricing dimensions; produce Low/Expected/High monthly bands; explain assumptions and uncertainty; highlight key cost drivers.
+  Limitations: estimates depend on usage assumptions and pricing freshness; not an invoice reconciler.
+  Required Inputs: IaC files, target region(s), environment count, SKUs/tiers, expected usage profiles (hours/traffic/transactions/storage).
+  Expected Outputs: estimate bands + per-service table, assumptions, exclusions/unknowns, pricing references (source/date), confidence level, optimization suggestions.
+  Examples: "Estimate monthly cost impact of a new AKS cluster defined in Terraform"; "Compare projected spend for two Bicep variants".
+  Risk Level: Medium (financial planning impact).
+  Keywords: azure cost estimate, iac pricing, terraform cost, bicep cost, monthly run-rate, cost drivers
 mode: subagent
 model: openai/gpt-5.2
 temperature: 0.2

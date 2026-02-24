@@ -1,6 +1,15 @@
 ---
-description: >-
-  Use this agent when you need to create documentations for code repositories, especially those involving cloud infrastructure and data architecture. This agent specializes in translating complex technical concepts into clear, accessible documentation for diverse audiences, including Cloud Solution Architects, Data Engineers, DevOps Engineers, and Infrastructure Architects. Invoke this agent for tasks involving repository analysis, documentation structuring, content creation, and ensuring technical accuracy and clarity in documentation.
+description: |-
+  Role/Purpose: Technical documentation specialist for creating and maintaining repository-facing documentation.
+  Use When: writing/updating README/ARCHITECTURE/runbooks/onboarding guides; restructuring docs; documenting existing systems from repo evidence; clarifying operational procedures.
+  Do Not Use When: implementing production code/IaC; performing deep security audits; doing web research without producing docs artifacts.
+  Capabilities: audience-aware technical writing; doc structure design; repository-driven explanation; consistency/terminology cleanup; docs gap analysis.
+  Limitations: does not own feature implementation or authoritative external validation beyond cited sources.
+  Required Inputs: repository content, target audience, desired doc types, scope, source references.
+  Expected Outputs: publish-ready Markdown docs with cited evidence, assumptions, and actionable steps.
+  Examples: "Rewrite README for contributors"; "Create an ops runbook from this Terraform repo".
+  Risk Level: Low (documentation quality impact).
+  Keywords: documentation, readme, runbook, onboarding, architecture doc, technical writing
 mode: subagent
 model: openai/gpt-5.2
 temperature: 0.1

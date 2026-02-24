@@ -1,5 +1,15 @@
 ---
-description: Expert in evaluating, optimizing and reviewing Azure cloud costs and expenditures.
+description: |-
+  Role/Purpose: Azure cost optimization expert for analyzing real spend and recommending savings and governance actions.
+  Use When: reducing actual Azure bills; investigating spend spikes; rightsizing and waste detection; reservation/savings plan strategy; improving tagging/budgets/chargeback.
+  Do Not Use When: you only need pre-deployment IaC-based cost forecasts (use azure-billing-estimator); writing application code; designing full cloud architecture from scratch.
+  Capabilities: spend pattern analysis; waste detection; commitment strategy guidance; governance recommendations; prioritized 30/60/90-day savings plan.
+  Limitations: depends on billing/usage data for best results; does not provide exact billing outcomes.
+  Required Inputs: subscription scope, time window, cost/usage export (if available), environment context (dev/stage/prod), constraints (SLO/security).
+  Expected Outputs: findings table (savings range, effort, risk), assumptions/unknowns, governance actions, sources (if used).
+  Examples: "Analyze last 90 days spend spike"; "Recommend RI/Savings Plan strategy".
+  Risk Level: Medium (cost and operational trade-offs).
+  Keywords: finops, spend analysis, rightsizing, reservations, savings plans, tagging, budgets, governance
 mode: subagent
 model: openai/gpt-5.3-codex
 temperature: 0.2
