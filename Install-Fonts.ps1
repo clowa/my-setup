@@ -1,4 +1,4 @@
-Import-Module ./modules/FontHelper/FontHelper.psm1
+Import-Module (Join-Path $PSScriptRoot 'modules/FontHelper/FontHelper.psm1') -Force
 
 $fonts = @(
     @{

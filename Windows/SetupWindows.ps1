@@ -79,7 +79,7 @@ wsl --install -d Ubuntu
 # Install Fonts
 ###
 Write-Host 'Installing fonts ...'
-Import-Module ../modules/FontHelper/FontHelper.psm1
+Import-Module (Join-Path (Split-Path -Parent $PSScriptRoot) 'modules/FontHelper/FontHelper.psm1') -Force
 
 $tmpDir = New-Item -Path (Join-Path $env:TEMP (New-Guid)) -ItemType Directory
 $tmpLocalFonts = "$tmpDir\fonts"

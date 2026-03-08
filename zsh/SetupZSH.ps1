@@ -1,4 +1,4 @@
-Import-Module ../modules/ConfigurationHelper/ConfigurationHelper.psm1
+Import-Module (Join-Path (Split-Path -Parent $PSScriptRoot) 'modules/ConfigurationHelper/ConfigurationHelper.psm1') -Force
 
 $configGitRepoPath = Get-MySetupPath
 

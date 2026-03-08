@@ -40,8 +40,8 @@ foreach ($module in $modules) {
     Install-Module @module 
 }
 
-Import-Module ../modules/FontHelper/FontHelper.psm1
-Import-Module ../modules/ConfigurationHelper/ConfigurationHelper.psm1
+Import-Module (Join-Path (Split-Path -Parent $PSScriptRoot) 'modules/FontHelper/FontHelper.psm1') -Force
+Import-Module (Join-Path (Split-Path -Parent $PSScriptRoot) 'modules/ConfigurationHelper/ConfigurationHelper.psm1') -Force
 
 if (-Not (Test-Path $configGitRepoPath)) {
     Write-Host 'Cloneing config repository ...'

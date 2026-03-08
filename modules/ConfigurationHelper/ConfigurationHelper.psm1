@@ -24,15 +24,12 @@ function Get-ShouldOverwrite {
 }
 
 function Get-MySetupPath {
-    $mySetupPath = $null
-
-
     if (Test-Path "$HOME/github/my-setup") { 
-        $mySetupPath = "$HOME/github/my-setup" 
+        return "$HOME/github/my-setup" 
 
     } elseif (Test-Path "$PSScriptRoot/../../my-setup") {
-        $mySetupPath = Resolve-Path -Path "$PSScriptRoot/../../my-setup" 
+        return (Resolve-Path -Path "$PSScriptRoot/../../my-setup").Path
     } 
 
-    return $mySetupPath
+    return $null
 }
