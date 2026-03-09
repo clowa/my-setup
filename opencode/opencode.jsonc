@@ -3,6 +3,35 @@
     "default_agent": "plan",
     "model": "openai/gpt-5.2",
     "autoupdate": true,
+    "plugin": [
+        "opencode-websearch-cited@1.2.0",
+    ],
+    "provider": {
+        "openai": {
+            "options": {
+                "websearch_cited": {
+                    "model": "gpt-5.2"
+                }
+            }
+        }
+    },
+    "permission": {
+        "external_directory": {
+            "~/Downloads/**": "ask"
+        },
+        "bash": {
+            "rm *": "ask",
+            "pip install *": "ask",
+            "git *": "ask",
+            "git diff *": "allow",
+            "git log *": "allow",
+            "git status *": "allow",
+            "* --help": "allow"
+        },
+        "read": {
+            "**/*.secret*": "deny",
+        }
+    },
     "mcp": {
         /////////////////////
         // NOTES
