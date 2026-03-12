@@ -22,11 +22,19 @@
         "bash": {
             "rm *": "ask",
             "pip install *": "ask",
+            "brew *": "ask",
+            // Git
             "git *": "ask",
             "git diff *": "allow",
             "git log *": "allow",
             "git status *": "allow",
-            "* --help": "allow"
+            // Kubernetes
+            "kubectl *": "ask",
+            "kubectl get *": "allow",
+            "kubectl describe *": "allow",
+            "kubectl logs *": "allow",
+            // General
+            "* --help": "allow",
         },
         "read": {
             "**/*.secret*": "deny",
