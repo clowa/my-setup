@@ -1,0 +1,18 @@
+###############################################################################
+# Tools
+
+FROM dhi.io/kubectl:1.35.2 as kubectl
+
+###############################################################################
+# Opencode
+
+FROM ghcr.io/anomalyco/opencode:1.2.24 AS opencode
+
+WORKDIR /workspace
+VOLUME [ "/workspace", "/root/.local/share/opencode", "/root/.config/opencode" ]
+
+COPY --from=kubectl /usr/local/bin/kubectl /usr/local/bin/kubectl
+
+VOLUME [ "/root/.kube" ]
+
+ENTRYPOINT [ "/bin/sh" ]
