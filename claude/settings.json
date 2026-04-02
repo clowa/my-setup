@@ -1,0 +1,37 @@
+{
+    "mcpServers": {
+        "duckduckgo": {
+            "type": "stdio",
+            "command": "docker",
+            "args": ["run", "-i", "--rm", "mcp/duckduckgo:latest"]
+        },
+        "terraform_registry": {
+            "type": "stdio",
+            "command": "docker",
+            "args": ["run", "-i", "--rm", "hashicorp/terraform-mcp-server:0.4.0"]
+        },
+        "microsoft_azure": {
+            "type": "stdio",
+            "command": "docker",
+            "args": ["run", "-i", "--rm", "mcr.microsoft.com/azure-sdk/azure-mcp:latest"]
+        },
+        "microsoft_docs": {
+            "type": "sse",
+            "url": "https://learn.microsoft.com/api/mcp"
+        }
+    },
+    "permissions": {
+        "allow": [
+            "Bash(git diff*)",
+            "Bash(git log*)",
+            "Bash(git status*)",
+            "Bash(kubectl get*)",
+            "Bash(kubectl describe*)",
+            "Bash(kubectl logs*)",
+            "Bash(* --help)"
+        ],
+        "deny": [
+            "Read(**/*.secret*)"
+        ]
+    }
+}
