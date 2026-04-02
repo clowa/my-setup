@@ -1,4 +1,4 @@
-Import-Module (Join-Path $PSScriptRoot '../modules/ConfigurationHelper/ConfigurationHelper.psm1') -Force
+Import-Module (Join-Path $PSScriptRoot '../../modules/ConfigurationHelper/ConfigurationHelper.psm1') -Force
 
 $configGitRepoPath = Get-MySetupPath
 
@@ -19,7 +19,7 @@ $claudeFiles = Get-ChildItem -Path $PSScriptRoot -File -Filter '*.json' | Select
 $claudeLinkTargets = $claudeDirectories + $claudeFiles
 
 foreach ($item in $claudeLinkTargets) {
-    $targetPath = Join-Path $configGitRepoPath "claude/$item"
+    $targetPath = Join-Path $configGitRepoPath "ai/claude/$item"
     $linkPath = Join-Path $claudeConfigPath $item
 
     if (Get-ShouldOverwrite -Prompt "~/.claude/$item is present. Do you want to overwrite? (y/n)" -Path $linkPath) {

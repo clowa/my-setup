@@ -1,4 +1,4 @@
-Import-Module (Join-Path $PSScriptRoot '../modules/ConfigurationHelper/ConfigurationHelper.psm1') -Force
+Import-Module (Join-Path $PSScriptRoot '../../modules/ConfigurationHelper/ConfigurationHelper.psm1') -Force
 
 $configGitRepoPath = Get-MySetupPath
 
@@ -18,10 +18,18 @@ $openCodeFiles = Get-ChildItem -Path $PSScriptRoot -File -Filter '*.jsonc' | Sel
 $openCodeLinkTargets = $openCodeDirectories + $openCodeFiles
 
 foreach ($item in $openCodeLinkTargets) {
-    $targetPath = Join-Path $configGitRepoPath "opencode/$item"
+    $targetPath = Join-Path $configGitRepoPath "ai/opencode/$item"
     $linkPath = Join-Path $openCodeConfigPath $item
 
     if (Get-ShouldOverwrite -Prompt "Folder ~/.config/opencode/$item is present. Do you want to overwrite? (y/n)" -Path $linkPath) {
         New-Item -ItemType SymbolicLink -Path $linkPath -Target $targetPath -Force
     }
+}
+
+# Skills live in ai/skills/ (shared with Claude Code) — link explicitly
+$skillsTarget = Join-Path $configGitRepoPath 'ai/skills'
+$skillsLink = Join-Path $openCodeConfigPath 'skills'
+
+if (Get-ShouldOverwrite -Prompt "Folder ~/.config/opencode/skills is present. Do you want to overwrite? (y/n)" -Path $skillsLink) {
+    New-Item -ItemType SymbolicLink -Path $skillsLink -Target $skillsTarget -Force
 }
