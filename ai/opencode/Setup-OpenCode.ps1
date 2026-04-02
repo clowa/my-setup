@@ -13,9 +13,9 @@ if (-not (Test-Path $openCodeConfigPath)) {
 }
 
 $openCodeDirectories = Get-ChildItem -Path $PSScriptRoot -Directory | Select-Object -ExpandProperty Name
-$openCodeFiles = Get-ChildItem -Path $PSScriptRoot -File -Filter '*.jsonc' | Select-Object -ExpandProperty Name
+$openCodeFiles = Get-ChildItem -Path $PSScriptRoot -File | Where-Object { $_.Extension -in '.json', '.jsonc' } | Select-Object -ExpandProperty Name
 
-$openCodeLinkTargets = $openCodeDirectories + $openCodeFiles
+$openCodeLinkTargets = @($openCodeDirectories) + @($openCodeFiles)
 
 foreach ($item in $openCodeLinkTargets) {
     $targetPath = Join-Path $configGitRepoPath "ai/opencode/$item"

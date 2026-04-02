@@ -16,7 +16,7 @@ if (-not (Test-Path $claudeConfigPath)) {
 $claudeDirectories = Get-ChildItem -Path $PSScriptRoot -Directory | Select-Object -ExpandProperty Name
 $claudeFiles = Get-ChildItem -Path $PSScriptRoot -File -Filter '*.json' | Select-Object -ExpandProperty Name
 
-$claudeLinkTargets = $claudeDirectories + $claudeFiles
+$claudeLinkTargets = @($claudeDirectories) + @($claudeFiles)
 
 foreach ($item in $claudeLinkTargets) {
     $targetPath = Join-Path $configGitRepoPath "ai/claude/$item"
