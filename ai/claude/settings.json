@@ -1,34 +1,5 @@
 {
-    "mcpServers": {
-        "terraform_registry": {
-            "type": "stdio",
-            "command": "docker",
-            "args": [
-                "run",
-                "-i",
-                "--rm",
-                "hashicorp/terraform-mcp-server:0.4.0"
-            ]
-        },
-        "microsoft_azure": {
-            "type": "stdio",
-            "command": "docker",
-            "args": [
-                "run",
-                "-i",
-                "--rm",
-                "mcr.microsoft.com/azure-sdk/azure-mcp:latest"
-            ]
-        },
-        "microsoft_docs": {
-            "type": "http",
-            "url": "https://learn.microsoft.com/api/mcp"
-        },
-        "datadog": {
-            "type": "http",
-            "url": "https://mcp.us3.datadoghq.com/api/unstable/mcp-server/mcp?toolsets=all"
-        }
-    },
+    "$schema": "https://json.schemastore.org/claude-code-settings.json",
     "permissions": {
         "allow": [
             "Bash(git diff*)",
@@ -43,10 +14,13 @@
             "WebFetch(domain:1password.com/blog)",
             "WebFetch(domain:developer.1password.com)",
             "WebFetch(domain:1password.community)",
-            "WebFetch(domain:www.1password.community)"
+            "WebFetch(domain:www.1password.community)",
         ],
         "deny": [
-            "Read(**/*.secret*)"
+            "Read(**/*.secret*)",
         ]
+    },
+    "env": {
+        "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
     }
 }

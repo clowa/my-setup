@@ -34,6 +34,23 @@ foreach ($item in $claudeLinkTargets) {
     }
 }
 
+# Register MCP servers at user scope (settings.json does not support mcpServers)
+$mcpServers = @(
+    @{ Name = 'terraform_registry'; Transport = 'stdio'; Command = 'docker'; Args = @('run', '-i', '--rm', 'hashicorp/terraform-mcp-server:0.4.0') },
+    @{ Name = 'microsoft_azure';    Transport = 'stdio'; Command = 'docker'; Args = @('run', '-i', '--rm', 'mcr.microsoft.com/azure-sdk/azure-mcp:latest') },
+    @{ Name = 'microsoft_docs';     Transport = 'http';  Url = 'https://learn.microsoft.com/api/mcp' },
+    @{ Name = 'datadog';            Transport = 'http';  Url = 'https://mcp.us3.datadoghq.com/api/unstable/mcp-server/mcp?toolsets=all' }
+)
+
+foreach ($server in $mcpServers) {
+    Write-Host "Registering MCP server '$($server.Name)'..."
+    if ($server.Transport -eq 'http') {
+        claude mcp add --scope user --transport http $server.Name $server.Url
+    } else {
+        claude mcp add --scope user --transport stdio $server.Name $server.Command -- @($server.Args)
+    }
+}
+
 # Skills live in ai/skills/ (shared with OpenCode) — link explicitly
 $skillsTarget = Join-Path $configGitRepoPath 'ai/skills'
 $skillsLink = Join-Path $claudeConfigPath 'skills'
