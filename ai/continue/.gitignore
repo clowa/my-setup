@@ -1,0 +1,11 @@
+# Generated secrets - never commit
+.env
+
+# Continue runtime data
+index/
+sessions/
+dev_data/
+.migrations/
+.diffs/
+.utils/
+configs/

@@ -1,0 +1,43 @@
+name: Local Config
+version: 1.0.0
+schema: v1
+models:
+  # - name: Autodetect
+  #   provider: ollama
+  #   model: AUTODETECT
+  #   roles:
+  #     - autocomplete
+  #     - chat
+  #   autocompleteOptions:
+  #     disable: false
+  #     maxPromptTokens: 1024
+  #     debounceDelay: 250
+  #     modelTimeout: 150
+  #     maxSuffixPercentage: 0.2
+  #     prefixPercentage: 0.3
+  #     onlyMyCode: true
+
+  - name: apfel
+    provider: openai
+    model: apple-foundationmodel
+    apiBase: http://localhost:11434/v1
+    useLegacyCompletionsEndpoint: false
+    roles:
+      - autocomplete
+
+  - uses: openai/gpt-4.1
+    with:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+  - uses: openai/o3
+    with:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+  - uses: openai/gpt-4.1-mini
+    with:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+  - name: GPT-5.2
+    provider: openai
+    model: gpt-5.2
+    apiKey: ${{ secrets.OPENAI_API_KEY }}
