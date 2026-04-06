@@ -22,7 +22,14 @@ foreach ($item in $claudeLinkTargets) {
     $targetPath = Join-Path $configGitRepoPath "ai/claude/$item"
     $linkPath = Join-Path $claudeConfigPath $item
 
-    if (Get-ShouldOverwrite -Prompt "~/.claude/$item is present. Do you want to overwrite? (y/n)" -Path $linkPath) {
+    if (-not (Test-Path $targetPath)) {
+        Write-Warning "Skipping '$item': target not found at '$targetPath'"
+        continue
+    }
+
+    $kind = if (Test-Path $targetPath -PathType Container) { 'Directory' } else { 'File' }
+
+    if (Get-ShouldOverwrite -Prompt "$kind ~/.claude/$item is present. Do you want to overwrite? (y/n)" -Path $linkPath) {
         New-Item -ItemType SymbolicLink -Path $linkPath -Target $targetPath -Force
     }
 }
@@ -31,6 +38,8 @@ foreach ($item in $claudeLinkTargets) {
 $skillsTarget = Join-Path $configGitRepoPath 'ai/skills'
 $skillsLink = Join-Path $claudeConfigPath 'skills'
 
-if (Get-ShouldOverwrite -Prompt "~/.claude/skills is present. Do you want to overwrite? (y/n)" -Path $skillsLink) {
+if (-not (Test-Path $skillsTarget)) {
+    Write-Warning "Skipping 'skills': target not found at '$skillsTarget'"
+} elseif (Get-ShouldOverwrite -Prompt "Directory ~/.claude/skills is present. Do you want to overwrite? (y/n)" -Path $skillsLink) {
     New-Item -ItemType SymbolicLink -Path $skillsLink -Target $skillsTarget -Force
 }

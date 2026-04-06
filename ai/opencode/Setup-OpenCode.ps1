@@ -21,7 +21,14 @@ foreach ($item in $openCodeLinkTargets) {
     $targetPath = Join-Path $configGitRepoPath "ai/opencode/$item"
     $linkPath = Join-Path $openCodeConfigPath $item
 
-    if (Get-ShouldOverwrite -Prompt "Folder ~/.config/opencode/$item is present. Do you want to overwrite? (y/n)" -Path $linkPath) {
+    if (-not (Test-Path $targetPath)) {
+        Write-Warning "Skipping '$item': target not found at '$targetPath'"
+        continue
+    }
+
+    $kind = if (Test-Path $targetPath -PathType Container) { 'Directory' } else { 'File' }
+
+    if (Get-ShouldOverwrite -Prompt "$kind ~/.config/opencode/$item is present. Do you want to overwrite? (y/n)" -Path $linkPath) {
         New-Item -ItemType SymbolicLink -Path $linkPath -Target $targetPath -Force
     }
 }
@@ -30,6 +37,8 @@ foreach ($item in $openCodeLinkTargets) {
 $skillsTarget = Join-Path $configGitRepoPath 'ai/skills'
 $skillsLink = Join-Path $openCodeConfigPath 'skills'
 
-if (Get-ShouldOverwrite -Prompt "Folder ~/.config/opencode/skills is present. Do you want to overwrite? (y/n)" -Path $skillsLink) {
+if (-not (Test-Path $skillsTarget)) {
+    Write-Warning "Skipping 'skills': target not found at '$skillsTarget'"
+} elseif (Get-ShouldOverwrite -Prompt "Directory ~/.config/opencode/skills is present. Do you want to overwrite? (y/n)" -Path $skillsLink) {
     New-Item -ItemType SymbolicLink -Path $skillsLink -Target $skillsTarget -Force
 }
