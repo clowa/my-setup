@@ -31,7 +31,7 @@
             ]
         },
         "microsoft_docs": {
-            "type": "sse",
+            "type": "http",
             "url": "https://learn.microsoft.com/api/mcp"
         },
         "datadog": {
