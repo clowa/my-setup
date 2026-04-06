@@ -3,17 +3,32 @@
         "duckduckgo": {
             "type": "stdio",
             "command": "docker",
-            "args": ["run", "-i", "--rm", "mcp/duckduckgo:latest"]
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "mcp/duckduckgo:latest"
+            ]
         },
         "terraform_registry": {
             "type": "stdio",
             "command": "docker",
-            "args": ["run", "-i", "--rm", "hashicorp/terraform-mcp-server:0.4.0"]
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "hashicorp/terraform-mcp-server:0.4.0"
+            ]
         },
         "microsoft_azure": {
             "type": "stdio",
             "command": "docker",
-            "args": ["run", "-i", "--rm", "mcr.microsoft.com/azure-sdk/azure-mcp:latest"]
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "mcr.microsoft.com/azure-sdk/azure-mcp:latest"
+            ]
         },
         "microsoft_docs": {
             "type": "sse",
