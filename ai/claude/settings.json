@@ -33,6 +33,10 @@
         "microsoft_docs": {
             "type": "sse",
             "url": "https://learn.microsoft.com/api/mcp"
+        },
+        "datadog": {
+            "type": "http",
+            "url": "https://mcp.us3.datadoghq.com/api/unstable/mcp-server/mcp?toolsets=all"
         }
     },
     "permissions": {
