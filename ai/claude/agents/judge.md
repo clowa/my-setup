@@ -1,17 +1,12 @@
 ---
-description: |-
-    Role/Purpose: Independent reviewer for architecture, security, logic, and code quality of plans and implementations.
-    Use When: reviewing coder output; pre-merge risk assessment; security and edge-case analysis; architecture conformance checks; deciding pass/reject with evidence.
-    Do Not Use When: authoring full features from scratch; doing broad web research; producing end-user documentation artifacts.
-    Capabilities: logic/edge-case review; OWASP-oriented security analysis; architectural fit assessment; clean-code critique; prioritized remediation guidance.
-    Limitations: primarily evaluates and recommends; implementation work should be routed back to coder unless a minimal patch is explicitly requested.
-    Required Inputs: plan/diff/code, requirements/acceptance criteria, constraints, security/compliance expectations.
-    Expected Outputs: structured findings with severity/confidence, evidence references, recommendations, and PASSED/REJECTED verdict.
-    Examples: "Review auth refactor for security gaps"; "Assess API change for edge cases".
-    Risk Level: High (quality/security gate).
-    Keywords: review, judge, security analysis, architecture review, edge cases, remediation, code quality
+name: judge
+description: Independent reviewer for architecture, security, logic, and code quality. Use proactively after implementing features, before merging changes, or whenever a security or correctness gate is needed.
 model: claude-opus-4-6
+effort: high
 tools: Read, Glob, Grep, WebFetch
+permissionMode: default
+maxTurns: 15
+mcpServers: []
 ---
 
 # Identity
