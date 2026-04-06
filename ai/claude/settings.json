@@ -22,5 +22,19 @@
     },
     "env": {
         "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+    },
+    "hooks": {
+        "PostToolUse": [
+            {
+                "matcher": "Edit|Write",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash -c 'if git diff --name-only HEAD | grep -q \\.tf$; then terraform fmt -recursive . 2>/dev/null; fi'",
+                        "timeout": 300
+                    }
+                ],
+            }
+        ]
     }
 }
