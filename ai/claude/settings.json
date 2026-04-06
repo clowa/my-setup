@@ -43,7 +43,13 @@
             "Bash(kubectl get*)",
             "Bash(kubectl describe*)",
             "Bash(kubectl logs*)",
-            "Bash(* --help)"
+            "Bash(* --help)",
+            "WebFetch(domain:registry.terraform.io)",
+            "WebFetch(domain:1password.com)",
+            "WebFetch(domain:1password.com/blog)",
+            "WebFetch(domain:developer.1password.com)",
+            "WebFetch(domain:1password.community)",
+            "WebFetch(domain:www.1password.community)"
         ],
         "deny": [
             "Read(**/*.secret*)"
