@@ -1,15 +1,5 @@
 {
     "mcpServers": {
-        "duckduckgo": {
-            "type": "stdio",
-            "command": "docker",
-            "args": [
-                "run",
-                "-i",
-                "--rm",
-                "mcp/duckduckgo:latest"
-            ]
-        },
         "terraform_registry": {
             "type": "stdio",
             "command": "docker",
