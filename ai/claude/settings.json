@@ -14,14 +14,15 @@
             "WebFetch(domain:1password.com/blog)",
             "WebFetch(domain:developer.1password.com)",
             "WebFetch(domain:1password.community)",
-            "WebFetch(domain:www.1password.community)",
+            "WebFetch(domain:www.1password.community)"
         ],
         "deny": [
-            "Read(**/*.secret*)",
+            "Read(**/*.secret*)"
         ]
     },
     "env": {
-        "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+        "DISABLE_TELEMETRY": "1",
+        "CLAUDE_CODE_ENABLE_TELEMETRY": "1"
     },
     "hooks": {
         "PostToolUse": [
@@ -30,10 +31,12 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "bash -c 'if git diff --name-only HEAD | grep -q \\.tf$; then terraform fmt -recursive . 2>/dev/null; fi'",
+                        "if": "EDIT(*.tf)",
+                        "statusMessage": "Formatting terraform code",
+                        "command": "terraform fmt -recursive . 2>/dev/null",
                         "timeout": 300
                     }
-                ],
+                ]
             }
         ]
     }
