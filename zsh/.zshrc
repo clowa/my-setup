@@ -136,6 +136,11 @@ else
   echo "1Password SSH agent socket not found. 1Password SSH agent will not be configured."
 fi
 
+## 1Password CLI Completion 
+if command -v op > /dev/null; then
+  eval "$(op completion zsh)"; compdef _op op
+fi
+
 ## 1Password CLI plugins
 if command -v op > /dev/null && [ -f ~/.config/op/plugins.sh ]; then
   source ~/.config/op/plugins.sh
