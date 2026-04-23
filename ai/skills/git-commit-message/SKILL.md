@@ -10,6 +10,14 @@ allowed-tools: Bash(git log *), Bash(git status *), Bash(git diff *)
 - Current git diff: !`git diff HEAD`
 - Recent commits: !`git log --oneline -n 5`
 
+## General commit message rules
+
+- Commit message should be concise and descriptive, providing a clear summary of the changes made in the commit.
+- Use the imperative mood in the subject line, as if giving a command. For example, "Add feature" instead of "Added feature" or "Adds feature".
+- Separate the subject from the body with a blank line.
+- Subject should not exceed 50 characters, not capitalized, and should not end with a period.
+- Body is optional and should only be used if there are additional details to provide about the commit. If used, it should be wrapped at 72 characters and should explain the "what" and "why" of the changes, not the "how". The body should not include any implementation details or code snippets.
+
 ## Semantic Message Style
 
 Format: <type>(<scope>): <subject>
@@ -28,7 +36,7 @@ Format: <type>(<scope>): <subject>
 - `revert`: Reverts the effects of a previous commit by mentioning it by reference like short commit id, PR id, etc.
 
 **Scope (Optional):**
-Specifies which module, file, or component the change was made on. It is written in parentheses along with the type. 
+Specifies which module, file, or component the change was made on. It is written in parentheses along with the type.
 Examples: feat(auth), fix(ui), docs(readme), style(header), chore(deps), refactor(api), test(login), perf(image-loader), ci(travis), build(webpack), revert(api)
 
 **Subject:**
