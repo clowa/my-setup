@@ -41,7 +41,7 @@ Import-Module $Path/pwsh-toolbox/modules/MyToolbox -Force
 if ($IsMacOS) { $env:SSH_AUTH_SOCK = "$HOME/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock" }
 elseif ($IsLinux) { $env:SSH_AUTH_SOCK = "$HOME/.1password/agent.sock" }
 
-if (Get-Command op -ne $null) { op completion powershell | Out-String | Invoke-Expression }
+if ((Get-Command op) -ne $null) { op completion powershell | Out-String | Invoke-Expression }
 
 
 
