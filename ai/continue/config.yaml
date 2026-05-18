@@ -2,20 +2,32 @@ name: Local Config
 version: 1.0.0
 schema: v1
 models:
-  # - name: Autodetect
-  #   provider: ollama
-  #   model: AUTODETECT
-  #   roles:
-  #     - autocomplete
-  #     - chat
-  #   autocompleteOptions:
-  #     disable: false
-  #     maxPromptTokens: 1024
-  #     debounceDelay: 250
-  #     modelTimeout: 150
-  #     maxSuffixPercentage: 0.2
-  #     prefixPercentage: 0.3
-  #     onlyMyCode: true
+  #############################################################################
+  # Ollama
+
+  - name: Autodetect
+    provider: ollama
+    model: AUTODETECT
+    roles:
+      - chat
+      - edit
+      - apply
+      - rerank
+      - autocomplete
+    autocompleteOptions:
+      debounceDelay: 800
+      onlyMyCode: true
+
+  - name: gemma4
+    provider: ollama
+    model: gemma4:e4b
+    roles:
+      - autocomplete
+    autocompleteOptions:
+      debounceDelay: 800
+    requestOptions:
+      extraBodyProperties:
+        think: false # thinking makes autocomplete slower
 
   - name: apfel
     provider: openai
@@ -24,6 +36,26 @@ models:
     useLegacyCompletionsEndpoint: false
     roles:
       - autocomplete
+    promptTemplates:
+      autocomplete: |
+        You are a code completion engine. Complete the {{{language}}} code at the cursor position marked by <CURSOR>.
+        Output ONLY the raw code to insert. No explanations. No markdown. No commentary.
+
+        File: {{{filename}}}
+
+        {{{prefix}}}<CURSOR>{{{suffix}}}
+    autocompleteOptions:
+      modelTimeout: 12000
+      showWhateverWeHaveAtXMs: 900 # return partial completion rather than nothing
+      debounceDelay: 1000 # reduce request spam while typing
+      maxPromptTokens: 512 # smaller budget = faster, less context overload
+      multilineCompletions: "never" # local/chat models over-complete without FIM training
+      useCache: true # skip round-trip for repeated prefix/suffix combos
+      useRecentlyEdited: false # reduces prompt overhead, saves token budget
+    requestOptions:
+      extraBodyProperties:
+        stop: null # apfel doesn't support stop tokens
+        think: false # apfel has no thinking
 
   - uses: openai/gpt-4.1
     with:
