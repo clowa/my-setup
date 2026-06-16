@@ -1,0 +1,15 @@
+{
+  "version": 3,
+  "skills": {
+    "azure-cost": {
+      "source": "microsoft/azure-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/microsoft/azure-skills.git",
+      "skillPath": "skills/azure-cost/SKILL.md",
+      "skillFolderHash": "6e90b596936df6b29d54a146a2c3dcbfe9c83dab",
+      "installedAt": "2026-05-22T13:13:53.901Z",
+      "updatedAt": "2026-05-22T13:13:53.901Z"
+    }
+  },
+  "dismissed": {}
+}
