@@ -68,7 +68,7 @@
                 "run",
                 "-i",
                 "--rm",
-                "hashicorp/terraform-mcp-server:0.4.0"
+                "hashicorp/terraform-mcp-server:1.0"
             ],
             "enabled": true,
             "environment": {}
