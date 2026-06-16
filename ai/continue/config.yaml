@@ -20,11 +20,26 @@ models:
 
   - name: gemma4
     provider: ollama
-    model: gemma4:e4b
+    model: gemma4:e4b-mlx
     roles:
       - autocomplete
     autocompleteOptions:
-      debounceDelay: 800
+      debounceDelay: 500
+    requestOptions:
+      extraBodyProperties:
+        think: false # thinking makes autocomplete slower
+
+  - name: qwen2.5-coder
+    provider: ollama
+    model: qwen2.5-coder:7b
+    roles:
+      - chat
+      - edit
+      - apply
+      - rerank
+      - autocomplete
+    autocompleteOptions:
+      debounceDelay: 500
     requestOptions:
       extraBodyProperties:
         think: false # thinking makes autocomplete slower
@@ -57,19 +72,3 @@ models:
         stop: null # apfel doesn't support stop tokens
         think: false # apfel has no thinking
 
-  - uses: openai/gpt-4.1
-    with:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-  - uses: openai/o3
-    with:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-  - uses: openai/gpt-4.1-mini
-    with:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-  - name: GPT-5.2
-    provider: openai
-    model: gpt-5.2
-    apiKey: ${{ secrets.OPENAI_API_KEY }}
