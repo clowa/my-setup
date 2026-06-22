@@ -4,10 +4,12 @@ Comments are not page decoration. Banners, closing-block labels, and hand-aligne
 
 ## Contents
 
-- [Banner & section-divider comments](#banner--section-divider-comments)
-- [Closing-block markers](#closing-block-markers)
-- [Over-formatted aligned columns](#over-formatted-aligned-columns)
-- [Rules of thumb](#rules-of-thumb)
+- [08. Visual Clutter \& Formatting](#08-visual-clutter--formatting)
+  - [Contents](#contents)
+  - [Banner \& section-divider comments](#banner--section-divider-comments)
+  - [Closing-block markers](#closing-block-markers)
+  - [Over-formatted aligned columns](#over-formatted-aligned-columns)
+  - [Rules of thumb](#rules-of-thumb)
 
 ## Banner & section-divider comments
 

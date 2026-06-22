@@ -4,11 +4,13 @@ The code already says *what* it does; a good comment says *why*. Comment the int
 
 ## Contents
 
-- [Explanation of intent](#explanation-of-intent)
-- [Clarification of the obscure-but-unchangeable](#clarification-of-the-obscure-but-unchangeable)
-- [Informative comments](#informative-comments)
-- [Context the code cannot convey](#context-the-code-cannot-convey)
-- [Rules of thumb](#rules-of-thumb)
+- [02. Explaining Context \& Intent](#02-explaining-context--intent)
+  - [Contents](#contents)
+  - [Explanation of intent](#explanation-of-intent)
+  - [Clarification of the obscure-but-unchangeable](#clarification-of-the-obscure-but-unchangeable)
+  - [Informative comments](#informative-comments)
+  - [Context the code cannot convey](#context-the-code-cannot-convey)
+  - [Rules of thumb](#rules-of-thumb)
 
 ## Explanation of intent
 

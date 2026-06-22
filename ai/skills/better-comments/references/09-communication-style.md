@@ -4,12 +4,14 @@ Even a warranted comment fails if it communicates poorly. Write for a stranger r
 
 ## Contents
 
-- [Mumbling](#mumbling)
-- [Too Much Information](#too-much-information)
-- [Inobvious Connection](#inobvious-connection)
-- [Nonlocal Information](#nonlocal-information)
-- [Unprofessional Language](#unprofessional-language)
-- [Rules of thumb](#rules-of-thumb)
+- [09. Poor Communication Style](#09-poor-communication-style)
+  - [Contents](#contents)
+  - [Mumbling](#mumbling)
+  - [Too Much Information](#too-much-information)
+  - [Inobvious Connection](#inobvious-connection)
+  - [Nonlocal Information](#nonlocal-information)
+  - [Unprofessional Language](#unprofessional-language)
+  - [Rules of thumb](#rules-of-thumb)
 
 ## Mumbling
 

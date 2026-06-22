@@ -4,10 +4,12 @@ Git already records history, authorship, and every past version of a line. A com
 
 ## Contents
 
-- [Commented-out code](#commented-out-code)
-- [Journal / changelog comments](#journal--changelog-comments)
-- [Attributions & bylines](#attributions--bylines)
-- [Rules of thumb](#rules-of-thumb)
+- [07. Version Control vs Code](#07-version-control-vs-code)
+  - [Contents](#contents)
+  - [Commented-out code](#commented-out-code)
+  - [Journal / changelog comments](#journal--changelog-comments)
+  - [Attributions \& bylines](#attributions--bylines)
+  - [Rules of thumb](#rules-of-thumb)
 
 ## Commented-out code
 

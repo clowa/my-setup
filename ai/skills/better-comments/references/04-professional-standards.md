@@ -4,12 +4,14 @@ Some comments are not just allowed but expected: legal headers on source files a
 
 ## Contents
 
-- [Legal / license headers](#legal--license-headers)
-- [Document the public surface](#document-the-public-surface)
-- [PowerShell comment-based help](#powershell-comment-based-help)
-- [Terraform variable and output descriptions](#terraform-variable-and-output-descriptions)
-- [Don't document obvious private code](#dont-document-obvious-private-code)
-- [Rules of thumb](#rules-of-thumb)
+- [04. Professional Standards](#04-professional-standards)
+  - [Contents](#contents)
+  - [Legal / license headers](#legal--license-headers)
+  - [Document the public surface](#document-the-public-surface)
+  - [PowerShell comment-based help](#powershell-comment-based-help)
+  - [Terraform variable and output descriptions](#terraform-variable-and-output-descriptions)
+  - [Don't document obvious private code](#dont-document-obvious-private-code)
+  - [Rules of thumb](#rules-of-thumb)
 
 ## Legal / license headers
 

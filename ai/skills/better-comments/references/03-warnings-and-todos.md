@@ -4,10 +4,12 @@ Some comments earn their place by flagging risk and unfinished work. Warn the re
 
 ## Contents
 
-- [Warning of consequences](#warning-of-consequences)
-- [TODO comments](#todo-comments)
-- [Amplification](#amplification)
-- [Rules of thumb](#rules-of-thumb)
+- [03. Warnings \& TODOs](#03-warnings--todos)
+  - [Contents](#contents)
+  - [Warning of consequences](#warning-of-consequences)
+  - [TODO comments](#todo-comments)
+  - [Amplification](#amplification)
+  - [Rules of thumb](#rules-of-thumb)
 
 ## Warning of consequences
 

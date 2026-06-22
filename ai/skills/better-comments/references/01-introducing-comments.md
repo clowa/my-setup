@@ -4,11 +4,13 @@ Comments are at best a necessary evil and at worst actively harmful. Every comme
 
 ## Contents
 
-- [Comments do not make up for bad code](#comments-do-not-make-up-for-bad-code)
-- [The best comment is the one you avoided writing](#the-best-comment-is-the-one-you-avoided-writing)
-- [Comments lie because they are not executed](#comments-lie-because-they-are-not-executed)
-- [Comments do not redeem unclear code](#comments-do-not-redeem-unclear-code)
-- [Rules of thumb](#rules-of-thumb)
+- [01. Introducing Comments](#01-introducing-comments)
+  - [Contents](#contents)
+  - [Comments do not make up for bad code](#comments-do-not-make-up-for-bad-code)
+  - [The best comment is the one you avoided writing](#the-best-comment-is-the-one-you-avoided-writing)
+  - [Comments lie because they are not executed](#comments-lie-because-they-are-not-executed)
+  - [Comments do not redeem unclear code](#comments-do-not-redeem-unclear-code)
+  - [Rules of thumb](#rules-of-thumb)
 
 ## Comments do not make up for bad code
 
