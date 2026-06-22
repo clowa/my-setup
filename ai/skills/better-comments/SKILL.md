@@ -1,6 +1,7 @@
 ---
 name: better-comments
 description: Guidelines for writing better code comments, based on Clean Code principles — comment the WHY not the WHAT, prefer expressive code over comments, and remove redundant, misleading, or noisy comments. Use when writing, reviewing, cleaning up, or adding code comments, doc comments, or documentation, or when the user mentions improving comments.
+model: haiku
 ---
 
 # Better Comments
