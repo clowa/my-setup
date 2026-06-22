@@ -36,7 +36,7 @@ foreach ($item in $claudeLinkTargets) {
 
 # Register MCP servers at user scope (settings.json does not support mcpServers)
 $mcpServers = @(
-    @{ Name = 'terraform_registry'; Transport = 'stdio'; Command = 'docker'; Args = @('run', '-i', '--rm', 'hashicorp/terraform-mcp-server:0.4.0') },
+    @{ Name = 'terraform_registry'; Transport = 'stdio'; Command = 'docker'; Args = @('run', '-i', '--rm', 'hashicorp/terraform-mcp-server:1.0') },
     @{ Name = 'microsoft_azure';    Transport = 'stdio'; Command = 'docker'; Args = @('run', '-i', '--rm', 'mcr.microsoft.com/azure-sdk/azure-mcp:latest') },
     @{ Name = 'microsoft_docs';     Transport = 'http';  Url = 'https://learn.microsoft.com/api/mcp' },
     @{ Name = 'datadog';            Transport = 'http';  Url = 'https://mcp.us3.datadoghq.com/api/unstable/mcp-server/mcp?toolsets=all' }
