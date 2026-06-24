@@ -2,6 +2,7 @@
 name: git-commit-message
 description: Create a git commit message using semantic commit message style
 allowed-tools: Bash(git log *), Bash(git status *), Bash(git diff *)
+model: sonnet
 ---
 
 ## Context
