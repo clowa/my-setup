@@ -1,15 +1,19 @@
 ---
 name: git-commit-message
-description: Create a git commit message using semantic commit message style
+description: Create a git commit message using semantic (semVer) commit message style. Use when the user ask for git commit messages.
 allowed-tools: Bash(git log *), Bash(git status *), Bash(git diff *)
-model: sonnet
 ---
+
+# Git Commit Message
+
+Generate a git commit message following the semantic commit message style for the current changes.
 
 ## Context
 
-- Current git status: !`git status`
-- Current git diff: !`git diff HEAD`
-- Recent commits: !`git log --oneline -n 5`
+- Files that have changes between the index and the current git HEAD: !`git status`
+- Only take staged files into account.
+- Changed lines of staged files: !`git diff --cached`
+- List last 5 commit messages: !`git log --oneline -n 5`
 
 ## General commit message rules
 
@@ -43,7 +47,7 @@ Examples: feat(auth), fix(ui), docs(readme), style(header), chore(deps), refacto
 **Subject:**
 Briefly and concisely describes what the commit does. It should be written in a maximum of 50 characters.
 
-Examples:
+## Examples
 
 - feat(auth): add login functionality
 - fix(ui): resolve button alignment issue
@@ -56,3 +60,7 @@ Examples:
 - ci(travis): add deployment step to pipeline
 - build(webpack): update webpack configuration for faster builds
 - revert(api): revert API changes that caused issues with data fetching
+
+## Output
+
+Return just the commit message itself.
