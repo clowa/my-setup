@@ -28,3 +28,6 @@ Temporary Items
 
 # manually ignored files
 *.ignore*
+
+# AI skill eval run outputs (traces, reports); reproducible via ./run-evals.sh
+ai/evals/*/artifacts/

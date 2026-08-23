@@ -14,11 +14,15 @@ docker run --rm \
   -v "$HOME/github/my-setup/.agents:/root/.agents" \
   -v "$HOME/.claude:/root/.claude" \
   -w /root \
-  node:22-alpine \
+  node:24-alpine \
   sh -c "apk add --no-cache git && npx -y skills add <REPO_URL> --skill <SKILL_NAME> --yes --global"
 ```
 
 Verify with `ls -l ~/github/my-setup/ai/skills/<SKILL_NAME>` (follows symlinks).
+
+## evals
+
+The evals of the SKILLs are stored in a separate `[../evals](../evals/)` directory with the same name as the SKILL.
 
 ## Lessons learned
 
