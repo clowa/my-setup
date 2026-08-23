@@ -18,7 +18,7 @@ docker run --rm \
   sh -c "apk add --no-cache git && npx -y skills add <REPO_URL> --skill <SKILL_NAME> --yes --global"
 ```
 
-Verify with `ls -l ~/github/my-setup/ai/skills/<SKILL_NAME>` (follows symlinks).
+Verify the installed SKILL is correctly linked with `ls -l ~/github/my-setup/ai/skills/<SKILL_NAME>` (follows symlinks) and ensure the lockfile `.agents/.skill-lock.json` has been updated.
 
 ## evals
 
