@@ -139,6 +139,10 @@ fi
 ## 1Password CLI Completion 
 if command -v op > /dev/null; then
   eval "$(op completion zsh)"; compdef _op op
+
+  ## Workaround 
+  ## See: https://github.com/1Password/shell-plugins/issues/587
+  export OP_BIOMETRIC_UNLOCK_ENABLED=true
 fi
 
 ## 1Password CLI plugins
