@@ -1,43 +1,49 @@
 {
-    "$schema": "https://json.schemastore.org/claude-code-settings.json",
-    "permissions": {
-        "allow": [
-            "Bash(git diff*)",
-            "Bash(git log*)",
-            "Bash(git status*)",
-            "Bash(kubectl get*)",
-            "Bash(kubectl describe*)",
-            "Bash(kubectl logs*)",
-            "Bash(* --help)",
-            "WebFetch(domain:registry.terraform.io)",
-            "WebFetch(domain:1password.com)",
-            "WebFetch(domain:1password.com/blog)",
-            "WebFetch(domain:developer.1password.com)",
-            "WebFetch(domain:1password.community)",
-            "WebFetch(domain:www.1password.community)"
-        ],
-        "deny": [
-            "Read(**/*.secret*)"
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "DISABLE_TELEMETRY": "1",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git status*)",
+      "Bash(kubectl get*)",
+      "Bash(kubectl describe*)",
+      "Bash(kubectl logs*)",
+      "Bash(* --help)",
+      "WebFetch(domain:registry.terraform.io)",
+      "WebFetch(domain:1password.com)",
+      "WebFetch(domain:1password.com/blog)",
+      "WebFetch(domain:developer.1password.com)",
+      "WebFetch(domain:1password.community)",
+      "WebFetch(domain:www.1password.community)"
+    ],
+    "deny": [
+      "Read(**/*.secret*)"
+    ]
+  },
+  "model": "opus[1m]",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terraform fmt -recursive . 2>/dev/null",
+            "if": "EDIT(*.tf)",
+            "timeout": 300,
+            "statusMessage": "Formatting terraform code"
+          }
         ]
-    },
-    "env": {
-        "DISABLE_TELEMETRY": "1",
-        "CLAUDE_CODE_ENABLE_TELEMETRY": "1"
-    },
-    "hooks": {
-        "PostToolUse": [
-            {
-                "matcher": "Edit|Write",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "if": "EDIT(*.tf)",
-                        "statusMessage": "Formatting terraform code",
-                        "command": "terraform fmt -recursive . 2>/dev/null",
-                        "timeout": 300
-                    }
-                ]
-            }
-        ]
-    }
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "azure@claude-plugins-official": false
+  },
+  "effortLevel": "xhigh",
+  "switchModelsOnFlag": false
 }
