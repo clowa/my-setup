@@ -34,3 +34,6 @@
 	autoSetupRemote = true
 [init]
 	defaultBranch = main
+[credential]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
